@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-require_once __DIR__ . '/../../../app/suporte/Helper.php';
+require_once __DIR__ . '/../../../app/Suporte/Helper.php';
 
 describe('obfuscarEmail', function () {
     it('deve obfuscar email corretamente', function () {
