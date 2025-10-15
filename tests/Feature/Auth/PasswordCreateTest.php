@@ -4,30 +4,28 @@ declare(strict_types = 1);
 
 use App\Livewire\Auth\Password\Create;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Livewire\Livewire;
 
-use function Pest\Laravel\{actingAs, assertDatabaseHas, get};
+use function Pest\Laravel\get;
 
-it('password create page can be rendered with valid token', function () {
-    $user = User::factory()->create();
+it('password create page can be rendered with valid token', function (): void {
+    $user  = User::factory()->create();
     $token = Password::createToken($user);
 
     get(route('password.create', ['token' => $token, 'email' => $user->email]))
         ->assertSuccessful();
 });
 
-it('password create redirects with invalid token', function () {
+it('password create redirects with invalid token', function (): void {
     $user = User::factory()->create();
-    
+
     Livewire::test(Create::class, ['token' => 'invalid-token', 'email' => $user->email])
         ->assertRedirect(route('login'));
 });
 
-it('password create requires password', function () {
-    $user = User::factory()->create();
+it('password create requires password', function (): void {
+    $user  = User::factory()->create();
     $token = Password::createToken($user);
 
     Livewire::test(Create::class, ['token' => $token, 'email' => $user->email])
@@ -36,8 +34,8 @@ it('password create requires password', function () {
         ->assertHasErrors(['password' => 'required']);
 });
 
-it('password create requires password confirmation', function () {
-    $user = User::factory()->create();
+it('password create requires password confirmation', function (): void {
+    $user  = User::factory()->create();
     $token = Password::createToken($user);
 
     Livewire::test(Create::class, ['token' => $token, 'email' => $user->email])
@@ -47,8 +45,8 @@ it('password create requires password confirmation', function () {
         ->assertHasErrors(['password' => 'confirmed']);
 });
 
-it('password create requires minimum 8 characters', function () {
-    $user = User::factory()->create();
+it('password create requires minimum 8 characters', function (): void {
+    $user  = User::factory()->create();
     $token = Password::createToken($user);
 
     Livewire::test(Create::class, ['token' => $token, 'email' => $user->email])
@@ -58,8 +56,8 @@ it('password create requires minimum 8 characters', function () {
         ->assertHasErrors(['password' => 'min']);
 });
 
-it('password create requires valid email', function () {
-    $user = User::factory()->create();
+it('password create requires valid email', function (): void {
+    $user  = User::factory()->create();
     $token = Password::createToken($user);
 
     Livewire::test(Create::class, ['token' => $token, 'email' => $user->email])
@@ -70,8 +68,8 @@ it('password create requires valid email', function () {
         ->assertHasErrors(['email' => 'email']);
 });
 
-it('can create password successfully', function () {
-    $user = User::factory()->create();
+it('can create password successfully', function (): void {
+    $user  = User::factory()->create();
     $token = Password::createToken($user);
 
     Livewire::test(Create::class, ['token' => $token, 'email' => $user->email])
@@ -82,14 +80,12 @@ it('can create password successfully', function () {
         ->assertSessionHas('status', 'Senha criada com sucesso.');
 });
 
-it('obfuscar email computed property works', function () {
-    $user = User::factory()->create(['email' => 'test@example.com']);
+it('obfuscar email computed property works', function (): void {
+    $user  = User::factory()->create(['email' => 'test@example.com']);
     $token = Password::createToken($user);
 
     $component = Livewire::test(Create::class, ['token' => $token, 'email' => $user->email]);
-    
+
     expect($component->obfuscarEmail)->toContain('*');
     expect($component->obfuscarEmail)->toContain('@example.com');
 });
-
-

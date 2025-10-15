@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use App\Models\Permission;
 use App\Models\Role;
@@ -8,9 +8,9 @@ use App\Models\User;
 
 use function Pest\Laravel\assertDatabaseHas;
 
-test('user can be given a permission', function () {
-    $user = User::factory()->create();
-    $role = Role::factory()->create();
+test('user can be given a permission', function (): void {
+    $user          = User::factory()->create();
+    $role          = Role::factory()->create();
     $user->role_id = $role->id;
     $user->save();
 
@@ -19,13 +19,13 @@ test('user can be given a permission', function () {
     expect($user->hasPermission('create-post'))->toBeTrue();
     assertDatabaseHas('permissions', [
         'permission' => 'create-post',
-        'role_id' => $role->id,
+        'role_id'    => $role->id,
     ]);
 });
 
-test('user can check if has a permission', function () {
-    $user = User::factory()->create();
-    $role = Role::factory()->create();
+test('user can check if has a permission', function (): void {
+    $user          = User::factory()->create();
+    $role          = Role::factory()->create();
     $user->role_id = $role->id;
     $user->save();
 
@@ -35,9 +35,9 @@ test('user can check if has a permission', function () {
     expect($user->hasPermission('delete-post'))->toBeFalse();
 });
 
-test('user can check multiple permissions', function () {
-    $user = User::factory()->create();
-    $role = Role::factory()->create();
+test('user can check multiple permissions', function (): void {
+    $user          = User::factory()->create();
+    $role          = Role::factory()->create();
     $user->role_id = $role->id;
     $user->save();
 
@@ -49,9 +49,9 @@ test('user can check multiple permissions', function () {
     expect($user->hasPermission(['create-post', 'delete-post']))->toBeTrue(); // Tem pelo menos uma
 });
 
-test('permission session is created when permission is assigned', function () {
-    $user = User::factory()->create();
-    $role = Role::factory()->create();
+test('permission session is created when permission is assigned', function (): void {
+    $user          = User::factory()->create();
+    $role          = Role::factory()->create();
     $user->role_id = $role->id;
     $user->save();
 
@@ -62,15 +62,15 @@ test('permission session is created when permission is assigned', function () {
     expect(session()->has("user:{$user->id}.permissions"))->toBeTrue();
 });
 
-test('permission can be given by id', function () {
-    $user = User::factory()->create();
-    $role = Role::factory()->create();
+test('permission can be given by id', function (): void {
+    $user          = User::factory()->create();
+    $role          = Role::factory()->create();
     $user->role_id = $role->id;
     $user->save();
 
     $permission = Permission::factory()->create([
         'permission' => 'test-permission',
-        'role_id' => $role->id,
+        'role_id'    => $role->id,
     ]);
 
     $user->givePermissionId($permission->id);
@@ -78,8 +78,8 @@ test('permission can be given by id', function () {
     expect($user->permissions->contains($permission))->toBeTrue();
 });
 
-test('role can have multiple permissions', function () {
-    $role = Role::factory()->create(['name' => 'Admin']);
+test('role can have multiple permissions', function (): void {
+    $role        = Role::factory()->create(['name' => 'Admin']);
     $permission1 = Permission::factory()->create(['permission' => 'create-post', 'role_id' => $role->id]);
     $permission2 = Permission::factory()->create(['permission' => 'edit-post', 'role_id' => $role->id]);
 

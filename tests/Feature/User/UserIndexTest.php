@@ -1,36 +1,38 @@
 <?php
 
-use App\Livewire\User\Index;
-use App\Models\User;
-use App\Models\Role;
+declare(strict_types = 1);
 
-test('user index requires authentication', function () {
+use App\Livewire\User\Index;
+use App\Models\Role;
+use App\Models\User;
+
+test('user index requires authentication', function (): void {
     $this->get(route('user.list'))
         ->assertRedirect(route('login'));
 });
 
-test('user index requires permission', function () {
+test('user index requires permission', function (): void {
     $user = User::factory()->create();
     $user->giveRole('user');
     $user = $user->fresh();
 
     $response = $this->actingAs($user)
         ->get(route('user.list'));
-    
+
     // User without permission should be redirected or forbidden
     expect($response->status())->toBeIn([302, 403]);
 });
 
-test('admin can access user index', function () {
+test('admin can access user index', function (): void {
     $admin = createAdminWithSession();
 
     $response = $this->actingAs($admin)
         ->get(route('user.list'));
-    
+
     expect($response->status())->toBeIn([200, 302, 403]);
 });
 
-test('user index component can be rendered', function () {
+test('user index component can be rendered', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -42,7 +44,7 @@ test('user index component can be rendered', function () {
         ->assertOk();
 });
 
-test('user index displays users', function () {
+test('user index displays users', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -51,12 +53,12 @@ test('user index displays users', function () {
     $this->actingAs($admin);
 
     $component = Livewire::test(Index::class);
-    
+
     // Just check that users property exists and is not null
     expect($component->users)->not->toBeNull();
 });
 
-test('user index search filters by name', function () {
+test('user index search filters by name', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -69,13 +71,13 @@ test('user index search filters by name', function () {
 
     $component = Livewire::test(Index::class)
         ->set('search', 'john');
-    
+
     $results = $component->users;
     expect($results)->toHaveCount(1);
     expect($results->first()->name)->toBe('John Doe');
 });
 
-test('user index search filters by email', function () {
+test('user index search filters by email', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -88,13 +90,13 @@ test('user index search filters by email', function () {
 
     $component = Livewire::test(Index::class)
         ->set('search', 'john@');
-    
+
     $results = $component->users;
     expect($results)->toHaveCount(1);
     expect($results->first()->email)->toBe('john@example.com');
 });
 
-test('user index can change per page', function () {
+test('user index can change per page', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -107,7 +109,7 @@ test('user index can change per page', function () {
         ->assertSet('perPage', 5);
 });
 
-test('user index dispatches delete event', function () {
+test('user index dispatches delete event', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -122,7 +124,7 @@ test('user index dispatches delete event', function () {
         ->assertDispatched('user.deletion');
 });
 
-test('user index dispatches restore event', function () {
+test('user index dispatches restore event', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -137,7 +139,7 @@ test('user index dispatches restore event', function () {
         ->assertDispatched('user.restoring');
 });
 
-test('user index dispatches show event', function () {
+test('user index dispatches show event', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -152,7 +154,7 @@ test('user index dispatches show event', function () {
         ->assertDispatched('user.showing');
 });
 
-test('user index can filter by role', function () {
+test('user index can filter by role', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -164,12 +166,12 @@ test('user index can filter by role', function () {
 
     $component = Livewire::test(Index::class)
         ->set('searchRole', [$adminRole->id]);
-    
+
     // Just verify it doesn't error
     expect($component)->not->toBeNull();
 });
 
-test('user index can show trashed users', function () {
+test('user index can show trashed users', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -179,8 +181,7 @@ test('user index can show trashed users', function () {
 
     $component = Livewire::test(Index::class)
         ->set('search_trash', true);
-    
+
     // Just verify the property was set
     expect($component->search_trash)->toBeTrue();
 });
-

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -29,9 +31,7 @@ pest()->extend(Tests\TestCase::class)
 |
 */
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
-});
+expect()->extend('toBeOne', fn () => $this->toBe(1));
 
 /*
 |--------------------------------------------------------------------------
@@ -46,10 +46,11 @@ expect()->extend('toBeOne', function () {
 
 function createAdminWithSession()
 {
-    $admin = \App\Models\User::factory()->create();
+    $admin = App\Models\User::factory()->create();
     $admin->giveRole('admin');
     $admin = $admin->fresh();
     $admin->makeSessionRoles();
     $admin->makeSessionPermissions();
+
     return $admin;
 }

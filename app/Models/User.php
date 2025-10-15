@@ -28,14 +28,13 @@ class User extends Authenticatable
         'restored_at',
         'restored_by',
         'deleted_by',
-        'role_id'
+        'role_id',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
-
 
     public function restoredBy(): BelongsTo
     {

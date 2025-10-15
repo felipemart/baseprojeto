@@ -63,6 +63,7 @@ class Index extends Component
     public function users(): LengthAwarePaginator
     {
         $this->validate(['searchRole' => 'exists:roles,id']);
+
         return User::query()
             ->with(['role'])
             ->when(

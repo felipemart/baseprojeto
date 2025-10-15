@@ -1,7 +1,6 @@
 <?php
 
-use Livewire\Volt\Volt;
-
+declare(strict_types = 1);
 
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Logout;
@@ -33,4 +32,3 @@ Route::middleware('auth')->group(function (): void {
         Route::get('/users', User\Index::class)->name('user.list');
     });
 });
-

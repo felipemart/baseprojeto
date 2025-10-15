@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types = 1);
+
 use App\Livewire\User\Show;
 use App\Models\User;
 
-test('user show component can be rendered', function () {
+test('user show component can be rendered', function (): void {
     $admin = createAdminWithSession();
 
     $this->actingAs($admin);
@@ -12,9 +14,9 @@ test('user show component can be rendered', function () {
         ->assertOk();
 });
 
-test('modal opens when user showing event is dispatched', function () {
+test('modal opens when user showing event is dispatched', function (): void {
     $admin = createAdminWithSession();
-    $user = User::factory()->create();
+    $user  = User::factory()->create();
 
     $this->actingAs($admin);
 
@@ -24,11 +26,11 @@ test('modal opens when user showing event is dispatched', function () {
         ->assertSet('user.id', $user->id);
 });
 
-test('user show can load user details', function () {
+test('user show can load user details', function (): void {
     $admin = createAdminWithSession();
-    $user = User::factory()->create([
-        'name' => 'Test User',
-        'email' => 'test@example.com'
+    $user  = User::factory()->create([
+        'name'  => 'Test User',
+        'email' => 'test@example.com',
     ]);
 
     $this->actingAs($admin);
@@ -40,9 +42,9 @@ test('user show can load user details', function () {
         ->assertSet('user.email', 'test@example.com');
 });
 
-test('user show can load deleted users', function () {
+test('user show can load deleted users', function (): void {
     $admin = createAdminWithSession();
-    $user = User::factory()->create();
+    $user  = User::factory()->create();
     $user->delete();
 
     $this->actingAs($admin);
@@ -52,4 +54,3 @@ test('user show can load deleted users', function () {
         ->assertSet('modal', true)
         ->assertSet('user.id', $user->id);
 });
-

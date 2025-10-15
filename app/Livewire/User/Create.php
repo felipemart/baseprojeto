@@ -4,13 +4,11 @@ declare(strict_types = 1);
 
 namespace App\Livewire\User;
 
-use App\Models\Empresa;
 use App\Models\Role;
 use App\Models\User;
 use App\Notifications\BemVindoNotification;
 use App\Notifications\EmailCriacaoSenha;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Password;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -24,11 +22,7 @@ class Create extends Component
 
     public Collection $roles;
 
-    public array $empresa = [];
-
     public ?int $roleSelect = null;
-
-    public ?int $empresaSelect = null;
 
     public ?int $id = null;
 
@@ -91,87 +85,14 @@ class Create extends Component
         ];
     }
 
-    public function changeEmpresa(): void
-    {
-        $role          = $this->roleSelect;
-        $empresa       = auth()->user()->empresa_id;
-        $roleUser      = auth()->user()->role_id;
-        $this->empresa = [];
-
-        if ($this->roleSelect !== null && $this->roleSelect !== 0) {
-            $this->empresa = Empresa::where(function ($query) use ($role, $empresa, $roleUser): void {
-                if ($role == 2) { // Operadora
-                    $query->whereExists(function ($q) use ($empresa, $roleUser): void {
-                        $r = $q->select(DB::raw(1))
-                            ->from('operadoras')
-                            ->whereColumn('operadoras.empresa_id', 'empresas.id')
-                            ->where(function ($query) use ($empresa): void {
-                                $query->where('operadoras.empresa_id', $empresa);
-                            });
-
-                        if ($roleUser == 1) {
-                            $r->orWhereExists(function ($q): void {
-                                $q->select(DB::raw(1))
-                                    ->from('operadoras')
-                                    ->whereColumn('operadoras.empresa_id', 'empresas.id');
-                            });
-                        }
-                    });
-                } elseif ($role == 3) { // Convênio
-                    $query->whereExists(function ($q) use ($empresa, $roleUser): void {
-                        $r = $q->select(DB::raw(1))
-                            ->from('convenios')
-                            ->join('operadoras', 'convenios.operadora_id', '=', 'operadoras.id')
-                            ->whereColumn('convenios.empresa_id', 'empresas.id')
-                            ->where(function ($query) use ($empresa): void {
-                                $query->Where('convenios.empresa_id', $empresa)
-                                    ->orWhere('operadoras.empresa_id', $empresa);
-                            });
-
-                        if ($roleUser == 1) {
-                            $r->orWhereExists(function ($q): void {
-                                $q->select(DB::raw(1))
-                                    ->from('convenios')
-                                    ->whereColumn('convenios.empresa_id', 'empresas.id');
-                            });
-                        }
-                    });
-                } elseif ($role == 4) { // Conveniada
-                    $query->whereExists(function ($q) use ($empresa, $roleUser): void {
-                        $r = $q->select(DB::raw(1))
-                            ->from('convenios')
-                            ->join('conveniadas', 'conveniadas.convenio_id', '=', 'convenios.id')
-                            ->join('operadoras', 'convenios.operadora_id', '=', 'operadoras.id')
-                            ->whereColumn('conveniadas.empresa_id', 'empresas.id')
-                            ->where(function ($query) use ($empresa): void {
-                                $query->Where('conveniadas.empresa_id', $empresa)
-                                    ->orWhere('convenios.empresa_id', $empresa)
-                                    ->orWhere('operadoras.empresa_id', $empresa);
-                            });
-
-                        if ($roleUser == 1) {
-                            $r->orWhereExists(function ($q): void {
-                                $q->select(DB::raw(1))
-                                    ->from('conveniadas')
-                                    ->whereColumn('conveniadas.empresa_id', 'empresas.id');
-                            });
-                        }
-                    });
-                }
-            })
-                ->get()->toArray();
-        }
-    }
-
     public function save(): bool
     {
         $this->validate();
         $this->user = User::create([
-            'name'       => $this->name,
-            'email'      => $this->email,
-            'password'   => bcrypt(str()->random(10)),
-            'empresa_id' => $this->empresaSelect,
-            'role_id'    => $this->roleSelect,
+            'name'     => $this->name,
+            'email'    => $this->email,
+            'password' => bcrypt(str()->random(10)),
+            'role_id'  => $this->roleSelect,
 
         ]);
 

@@ -4,13 +4,13 @@ declare(strict_types = 1);
 
 function obfuscarEmail(?string $email): string
 {
-    if ($email === null || $email === '' || $email === '0') {
+    if (in_array($email, [null, '', '0'], true)) {
         return '';
     }
 
     $split = explode('@', $email);
 
-    if (count($split) != 2) {
+    if (count($split) !== 2) {
         return '';
     }
 

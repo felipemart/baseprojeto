@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types = 1);
+
 use App\Livewire\User\Restore;
 use App\Models\User;
 
-test('user restore component can be rendered', function () {
+test('user restore component can be rendered', function (): void {
     $admin = createAdminWithSession();
 
     $this->actingAs($admin);
@@ -12,9 +14,9 @@ test('user restore component can be rendered', function () {
         ->assertOk();
 });
 
-test('modal opens when user restoring event is dispatched', function () {
+test('modal opens when user restoring event is dispatched', function (): void {
     $admin = createAdminWithSession();
-    $user = User::factory()->create();
+    $user  = User::factory()->create();
     $user->delete();
 
     $this->actingAs($admin);
@@ -25,9 +27,9 @@ test('modal opens when user restoring event is dispatched', function () {
         ->assertSet('user.id', $user->id);
 });
 
-test('user restore requires confirmation', function () {
+test('user restore requires confirmation', function (): void {
     $admin = createAdminWithSession();
-    $user = User::factory()->create();
+    $user  = User::factory()->create();
     $user->delete();
 
     $this->actingAs($admin);
@@ -40,9 +42,9 @@ test('user restore requires confirmation', function () {
         ->assertHasErrors('confirmRestore');
 });
 
-test('user restore requires correct confirmation text', function () {
+test('user restore requires correct confirmation text', function (): void {
     $admin = createAdminWithSession();
-    $user = User::factory()->create();
+    $user  = User::factory()->create();
     $user->delete();
 
     $this->actingAs($admin);
@@ -55,9 +57,9 @@ test('user restore requires correct confirmation text', function () {
         ->assertHasErrors('confirmRestore');
 });
 
-test('admin can restore deleted user with correct confirmation', function () {
+test('admin can restore deleted user with correct confirmation', function (): void {
     $admin = createAdminWithSession();
-    $user = User::factory()->create();
+    $user  = User::factory()->create();
     $user->delete();
 
     $this->actingAs($admin);
@@ -73,9 +75,9 @@ test('admin can restore deleted user with correct confirmation', function () {
     $this->assertDatabaseHas('users', ['id' => $user->id, 'deleted_at' => null]);
 });
 
-test('restored user has restored_by set', function () {
+test('restored user has restored_by set', function (): void {
     $admin = createAdminWithSession();
-    $user = User::factory()->create();
+    $user  = User::factory()->create();
     $user->delete();
 
     $this->actingAs($admin);
@@ -92,7 +94,7 @@ test('restored user has restored_by set', function () {
     expect($user->restored_at)->not->toBeNull();
 });
 
-test('user cannot restore themselves', function () {
+test('user cannot restore themselves', function (): void {
     $admin = createAdminWithSession();
     $admin->delete();
 
@@ -107,4 +109,3 @@ test('user cannot restore themselves', function () {
         ->call('restore')
         ->assertHasErrors('confirmDestroy');
 });
-

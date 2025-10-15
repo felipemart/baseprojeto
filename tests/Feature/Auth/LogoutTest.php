@@ -1,13 +1,12 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
-use App\Livewire\Auth\Logout;
 use App\Models\User;
 
 use function Pest\Laravel\assertGuest;
 
-test('authenticated user can logout', function () {
+test('authenticated user can logout', function (): void {
     $user = User::factory()->create();
 
     $this->actingAs($user)
@@ -17,12 +16,12 @@ test('authenticated user can logout', function () {
     assertGuest();
 });
 
-test('guest cannot access logout', function () {
+test('guest cannot access logout', function (): void {
     $this->get(route('logout'))
         ->assertRedirect(route('login'));
 });
 
-test('logout clears user session', function () {
+test('logout clears user session', function (): void {
     $user = User::factory()->create();
 
     $this->actingAs($user);
@@ -34,4 +33,3 @@ test('logout clears user session', function () {
 
     assertGuest();
 });
-

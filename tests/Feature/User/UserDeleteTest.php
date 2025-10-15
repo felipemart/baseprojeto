@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types = 1);
+
 use App\Livewire\User\Delete;
 use App\Models\User;
 
-test('user delete component can be rendered', function () {
+test('user delete component can be rendered', function (): void {
     $admin = createAdminWithSession();
 
     $this->actingAs($admin);
@@ -12,9 +14,9 @@ test('user delete component can be rendered', function () {
         ->assertOk();
 });
 
-test('modal opens when user deletion event is dispatched', function () {
+test('modal opens when user deletion event is dispatched', function (): void {
     $admin = createAdminWithSession();
-    $user = User::factory()->create();
+    $user  = User::factory()->create();
 
     $this->actingAs($admin);
 
@@ -24,7 +26,7 @@ test('modal opens when user deletion event is dispatched', function () {
         ->assertSet('user.id', $user->id);
 });
 
-test('user cannot delete themselves', function () {
+test('user cannot delete themselves', function (): void {
     $admin = createAdminWithSession();
 
     $this->actingAs($admin);
@@ -35,13 +37,13 @@ test('user cannot delete themselves', function () {
         ->set('confirmDestroy_confirmation', 'DELETAR')
         ->call('destroy')
         ->assertHasErrors('confirmDestroy');
-    
+
     $this->assertDatabaseHas('users', ['id' => $admin->id, 'deleted_at' => null]);
 });
 
-test('user delete requires confirmation', function () {
+test('user delete requires confirmation', function (): void {
     $admin = createAdminWithSession();
-    $user = User::factory()->create();
+    $user  = User::factory()->create();
 
     $this->actingAs($admin);
 
@@ -53,9 +55,9 @@ test('user delete requires confirmation', function () {
         ->assertHasErrors('confirmDestroy');
 });
 
-test('user delete requires correct confirmation text', function () {
+test('user delete requires correct confirmation text', function (): void {
     $admin = createAdminWithSession();
-    $user = User::factory()->create();
+    $user  = User::factory()->create();
 
     $this->actingAs($admin);
 
@@ -67,9 +69,9 @@ test('user delete requires correct confirmation text', function () {
         ->assertHasErrors('confirmDestroy');
 });
 
-test('admin can delete user with correct confirmation', function () {
+test('admin can delete user with correct confirmation', function (): void {
     $admin = createAdminWithSession();
-    $user = User::factory()->create();
+    $user  = User::factory()->create();
 
     $this->actingAs($admin);
 
@@ -84,9 +86,9 @@ test('admin can delete user with correct confirmation', function () {
     $this->assertSoftDeleted('users', ['id' => $user->id]);
 });
 
-test('deleted user has deleted_by set', function () {
+test('deleted user has deleted_by set', function (): void {
     $admin = createAdminWithSession();
-    $user = User::factory()->create();
+    $user  = User::factory()->create();
 
     $this->actingAs($admin);
 
@@ -100,4 +102,3 @@ test('deleted user has deleted_by set', function () {
     $user->refresh();
     expect($user->deleted_by)->toBe($admin->id);
 });
-
