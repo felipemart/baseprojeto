@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /home/projetos/dogs/app/Livewire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css?v=12.4.0" rel="stylesheet" type="text/css">
+  <link href="../_css/billboard.min.css?v=12.4.0" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css?v=12.4.0" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">/home/projetos/dogs/app</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Livewire</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classesCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3 style="margin-top: 2rem;">Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="User/Create.php.html#19">App\Livewire\User\Create</a></td><td class="text-right">19%</td></tr>
+       <tr><td><a href="Auth/Register.php.html#12">App\Livewire\Auth\Register</a></td><td class="text-right">20%</td></tr>
+       <tr><td><a href="User/Update.php.html#13">App\Livewire\User\Update</a></td><td class="text-right">77%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3 style="margin-top: 2rem;">Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+         <th class="text-right">Complexity</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="User/Create.php.html#19">App\Livewire\User\Create</a></td><td class="text-right">19.3%</td><td class="text-right">16</td><td class="text-right">150</td></tr>
+       <tr><td><a href="User/Update.php.html#13">App\Livewire\User\Update</a></td><td class="text-right">77.5%</td><td class="text-right">6</td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2 style="margin-top: 3rem;">Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodsCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3 style="margin-top: 2rem;">Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="User/Create.php.html#94"><abbr title="App\Livewire\User\Create::changeEmpresa">changeEmpresa</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="User/Create.php.html#166"><abbr title="App\Livewire\User\Create::save">save</abbr></a></td><td class="text-right">3%</td></tr>
+       <tr><td><a href="Auth/Register.php.html#30"><abbr title="App\Livewire\Auth\Register::registrarUsuario">registrarUsuario</abbr></a></td><td class="text-right">11%</td></tr>
+       <tr><td><a href="User/Update.php.html#66"><abbr title="App\Livewire\User\Update::save">save</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Auth/Password/Create.php.html#75"><abbr title="App\Livewire\Auth\Password\Create::criarSenha">criarSenha</abbr></a></td><td class="text-right">76%</td></tr>
+       <tr><td><a href="Auth/Password/Reset.php.html#75"><abbr title="App\Livewire\Auth\Password\Reset::resetarSenha">resetarSenha</abbr></a></td><td class="text-right">76%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3 style="margin-top: 2rem;">Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+         <th class="text-right">Complexity</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="User/Create.php.html#94"><abbr title="App\Livewire\User\Create::changeEmpresa">changeEmpresa</abbr></a></td><td class="text-right">0.0%</td><td class="text-right">9</td><td class="text-right">90</td></tr>
+       <tr><td><a href="User/Create.php.html#166"><abbr title="App\Livewire\User\Create::save">save</abbr></a></td><td class="text-right">3.3%</td><td class="text-right">2</td><td class="text-right">5</td></tr>
+       <tr><td><a href="Auth/Password/Create.php.html#75"><abbr title="App\Livewire\Auth\Password\Create::criarSenha">criarSenha</abbr></a></td><td class="text-right">76.5%</td><td class="text-right">3</td><td class="text-right">3</td></tr>
+       <tr><td><a href="Auth/Password/Reset.php.html#75"><abbr title="App\Livewire\Auth\Password\Reset::resetarSenha">resetarSenha</abbr></a></td><td class="text-right">76.5%</td><td class="text-right">3</td><td class="text-right">3</td></tr>
+       <tr><td><a href="User/Update.php.html#66"><abbr title="App\Livewire\User\Update::save">save</abbr></a></td><td class="text-right">60.9%</td><td class="text-right">2</td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 12.4.0</a> using <a href="https://www.php.net/" target="_top">PHP 8.4.13</a> and <a href="https://phpunit.de/">PHPUnit 12.4.0</a> at Wed Oct 15 14:29:16 UTC 2025.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/billboard.pkgd.min.js?v=12.4.0" type="text/javascript"></script>
+  <script type="application/json" id="complexity_class">[[19.26605504587156,16,"User\/Create.php.html#19","App\\Livewire\\User\\Create","150.71"],[20,2,"Auth\/Register.php.html#12","App\\Livewire\\Auth\\Register","4.05"],[77.5,6,"User\/Update.php.html#13","App\\Livewire\\User\\Update","6.41"],[90,12,"Auth\/Password\/Create.php.html#17","App\\Livewire\\Auth\\Password\\Create","12.14"],[90,12,"Auth\/Password\/Reset.php.html#17","App\\Livewire\\Auth\\Password\\Reset","12.14"],[100,9,"Auth\/Login.php.html#12","App\\Livewire\\Auth\\Login","9"],[100,1,"Auth\/Logout.php.html#9","App\\Livewire\\Auth\\Logout","1"],[100,4,"Auth\/Password\/Recovery.php.html#10","App\\Livewire\\Auth\\Password\\Recovery","4"],[100,4,"User\/Delete.php.html#14","App\\Livewire\\User\\Delete","4"],[100,10,"User\/Index.php.html#22","App\\Livewire\\User\\Index","10"],[100,9,"User\/PermissionUser.php.html#17","App\\Livewire\\User\\PermissionUser","9"],[100,4,"User\/Restore.php.html#14","App\\Livewire\\User\\Restore","4"],[100,2,"User\/Show.php.html#11","App\\Livewire\\User\\Show","2"],[100,5,"Welcome.php.html#11","App\\Livewire\\Welcome","5"]]</script>
+  <script type="application/json" id="complexity_method">[[0,9,"User\/Create.php.html#94","App\\Livewire\\User\\Create::changeEmpresa","90"],[3.3333333333333335,2,"User\/Create.php.html#166","App\\Livewire\\User\\Create::save","5.61"],[11.11111111111111,1,"Auth\/Register.php.html#30","App\\Livewire\\Auth\\Register::registrarUsuario","1.70"],[60.86956521739131,2,"User\/Update.php.html#66","App\\Livewire\\User\\Update::save","2.24"],[76.47058823529412,3,"Auth\/Password\/Create.php.html#75","App\\Livewire\\Auth\\Password\\Create::criarSenha","3.12"],[76.47058823529412,3,"Auth\/Password\/Reset.php.html#75","App\\Livewire\\Auth\\Password\\Reset::resetarSenha","3.12"],[100,1,"Auth\/Login.php.html#18","App\\Livewire\\Auth\\Login::render","1"],[100,1,"Auth\/Login.php.html#24","App\\Livewire\\Auth\\Login::rules","1"],[100,1,"Auth\/Login.php.html#32","App\\Livewire\\Auth\\Login::messages","1"],[100,3,"Auth\/Login.php.html#40","App\\Livewire\\Auth\\Login::lgoin","3"],[100,1,"Auth\/Login.php.html#65","App\\Livewire\\Auth\\Login::keyLimiter","1"],[100,2,"Auth\/Login.php.html#70","App\\Livewire\\Auth\\Login::virificaRateLimiter","2"],[100,1,"Auth\/Logout.php.html#11","App\\Livewire\\Auth\\Logout::mount","1"],[100,2,"Auth\/Password\/Create.php.html#27","App\\Livewire\\Auth\\Password\\Create::mount","2"],[100,1,"Auth\/Password\/Create.php.html#38","App\\Livewire\\Auth\\Password\\Create::rules","1"],[100,1,"Auth\/Password\/Create.php.html#46","App\\Livewire\\Auth\\Password\\Create::messages","1"],[100,1,"Auth\/Password\/Create.php.html#56","App\\Livewire\\Auth\\Password\\Create::render","1"],[100,3,"Auth\/Password\/Create.php.html#62","App\\Livewire\\Auth\\Password\\Create::tokenInvalido","3"],[100,1,"Auth\/Password\/Create.php.html#104","App\\Livewire\\Auth\\Password\\Create::obfuscarEmail","1"],[100,1,"Auth\/Password\/Recovery.php.html#16","App\\Livewire\\Auth\\Password\\Recovery::render","1"],[100,1,"Auth\/Password\/Recovery.php.html#22","App\\Livewire\\Auth\\Password\\Recovery::rules","1"],[100,1,"Auth\/Password\/Recovery.php.html#29","App\\Livewire\\Auth\\Password\\Recovery::messages","1"],[100,1,"Auth\/Password\/Recovery.php.html#37","App\\Livewire\\Auth\\Password\\Recovery::recuperacaoSenha","1"],[100,2,"Auth\/Password\/Reset.php.html#27","App\\Livewire\\Auth\\Password\\Reset::mount","2"],[100,1,"Auth\/Password\/Reset.php.html#38","App\\Livewire\\Auth\\Password\\Reset::rules","1"],[100,1,"Auth\/Password\/Reset.php.html#46","App\\Livewire\\Auth\\Password\\Reset::messages","1"],[100,1,"Auth\/Password\/Reset.php.html#56","App\\Livewire\\Auth\\Password\\Reset::render","1"],[100,3,"Auth\/Password\/Reset.php.html#62","App\\Livewire\\Auth\\Password\\Reset::tokenInvalido","3"],[100,1,"Auth\/Password\/Reset.php.html#104","App\\Livewire\\Auth\\Password\\Reset::obfuscarEmail","1"],[100,1,"Auth\/Register.php.html#25","App\\Livewire\\Auth\\Register::render","1"],[100,1,"User\/Create.php.html#51","App\\Livewire\\User\\Create::mount","1"],[100,1,"User\/Create.php.html#61","App\\Livewire\\User\\Create::render","1"],[100,1,"User\/Create.php.html#66","App\\Livewire\\User\\Create::rules","1"],[100,1,"User\/Create.php.html#75","App\\Livewire\\User\\Create::messages","1"],[100,1,"User\/Create.php.html#86","App\\Livewire\\User\\Create::headers","1"],[100,1,"User\/Delete.php.html#27","App\\Livewire\\User\\Delete::render","1"],[100,1,"User\/Delete.php.html#32","App\\Livewire\\User\\Delete::openConfirmationfor","1"],[100,2,"User\/Delete.php.html#39","App\\Livewire\\User\\Delete::destroy","2"],[100,2,"User\/Index.php.html#44","App\\Livewire\\User\\Index::mount","2"],[100,1,"User\/Index.php.html#50","App\\Livewire\\User\\Index::updatedPerPage","1"],[100,1,"User\/Index.php.html#55","App\\Livewire\\User\\Index::render","1"],[100,1,"User\/Index.php.html#62","App\\Livewire\\User\\Index::users","1"],[100,1,"User\/Index.php.html#102","App\\Livewire\\User\\Index::headers","1"],[100,1,"User\/Index.php.html#113","App\\Livewire\\User\\Index::filterRole","1"],[100,1,"User\/Index.php.html#120","App\\Livewire\\User\\Index::destroy","1"],[100,1,"User\/Index.php.html#125","App\\Livewire\\User\\Index::restore","1"],[100,1,"User\/Index.php.html#130","App\\Livewire\\User\\Index::show","1"],[100,1,"User\/PermissionUser.php.html#34","App\\Livewire\\User\\PermissionUser::render","1"],[100,1,"User\/PermissionUser.php.html#39","App\\Livewire\\User\\PermissionUser::mount","1"],[100,1,"User\/PermissionUser.php.html#46","App\\Livewire\\User\\PermissionUser::headers","1"],[100,1,"User\/PermissionUser.php.html#57","App\\Livewire\\User\\PermissionUser::permissions","1"],[100,1,"User\/PermissionUser.php.html#74","App\\Livewire\\User\\PermissionUser::updateSetPermissions","1"],[100,2,"User\/PermissionUser.php.html#81","App\\Livewire\\User\\PermissionUser::updatePermissions","2"],[100,2,"User\/PermissionUser.php.html#90","App\\Livewire\\User\\PermissionUser::allPermissions","2"],[100,1,"User\/Restore.php.html#27","App\\Livewire\\User\\Restore::render","1"],[100,1,"User\/Restore.php.html#32","App\\Livewire\\User\\Restore::openConfirmationfor","1"],[100,2,"User\/Restore.php.html#39","App\\Livewire\\User\\Restore::restore","2"],[100,1,"User\/Show.php.html#17","App\\Livewire\\User\\Show::render","1"],[100,1,"User\/Show.php.html#22","App\\Livewire\\User\\Show::loadUser","1"],[100,1,"User\/Update.php.html#33","App\\Livewire\\User\\Update::mount","1"],[100,1,"User\/Update.php.html#44","App\\Livewire\\User\\Update::render","1"],[100,1,"User\/Update.php.html#49","App\\Livewire\\User\\Update::rules","1"],[100,1,"User\/Update.php.html#58","App\\Livewire\\User\\Update::messages","1"],[100,1,"Welcome.php.html#22","App\\Livewire\\Welcome::clear","1"],[100,1,"Welcome.php.html#29","App\\Livewire\\Welcome::delete","1"],[100,1,"Welcome.php.html#35","App\\Livewire\\Welcome::headers","1"],[100,1,"Welcome.php.html#51","App\\Livewire\\Welcome::users","1"],[100,1,"Welcome.php.html#62","App\\Livewire\\Welcome::render","1"]]</script>
+  <script type="text/javascript" defer>
+  const barLabels = [
+    '0%',
+    '0-10%',
+    '10-20%',
+    '20-30%',
+    '30-40%',
+    '40-50%',
+    '50-60%',
+    '60-70%',
+    '70-80%',
+    '80-90%',
+    '90-100%',
+    '100%'
+  ];
+  const barConfig = (name, fullName, values) => ({
+    axis: {
+      x: {
+        type: "category",
+        categories: barLabels,
+      },
+      y: {
+        label: {
+          text: `#${name}`,
+          position: 'outer-top',
+        },
+      },
+    },
+    bindto: `#${name}CoverageDistribution`,
+    data: {
+      columns: [
+        [fullName].concat(values),
+      ],
+      colors: {
+        [fullName]: "rgba(69, 114, 167, 0.75)",
+      },
+      type: "bar",
+    },
+    bar: {
+      width: {
+        ratio: 0.9,
+      },
+    },
+    grid: {
+      focus: {
+        show: false,
+      },
+      x: {
+        show: true,
+      },
+      y: {
+        show: true,
+      },
+    },
+    legend: {
+      show: false,
+    },
+    tooltip: {
+      contents: function (data) {
+        return `<table class="bb-tooltip"><tbody>
+            <tr><th colspan="2">Coverage ${barLabels[data[0].x]}</th></tr>
+            <tr><td class="value">${data[0].value} ${name}</td></tr>
+          </tbody></table>`;
+      },
+      grouped: false,
+    },
+  });
+  bb.generate(
+    barConfig('classes', "Class Coverage", [0,0,1,1,0,0,0,0,1,0,2,9])
+  );
+  bb.generate(
+    barConfig('methods', "Method Coverage", [1,1,1,0,0,0,0,1,2,0,0,62])
+  );
+
+  const scatterConfig = (name, complexityData) => ({
+    axis: {
+      x: {
+        label: {
+          text: 'Code Coverage (in percent)',
+          position: 'outer-right',
+        },
+        tick: {
+          values: [0, 20, 40, 60, 80, 100],
+        },
+      },
+      y: {
+        label: {
+          text: 'Cyclomatic Complexity',
+          position: 'outer-top',
+        },
+        min: 0,
+        padding: {
+          bottom: 0,
+          top: 5,
+        },
+      },
+    },
+    bindto: `#${name}Complexity`,
+    data: {
+      columns: [
+        ["complexity_x"].concat(complexityData.map(d => d[0])),
+        ["complexity"].concat(complexityData.map(d => d[1])),
+      ],
+      onclick: function(data, element) {
+        window.location = complexityData[data.index][2];
+      },
+      type: "scatter",
+      xs: {
+        "complexity": "complexity_x",
+      },
+    },
+    grid: {
+      focus: {
+        show: true,
+        y: true,
+      },
+      x: {
+        show: true,
+      },
+      y: {
+        show: true,
+      },
+    },
+    legend: {
+      show: false,
+    },
+    tooltip: {
+      contents: function (data) {
+        const coverage = Math.round(data[0].x);
+        const complexity = data[0].value;
+        const targetName = complexityData[data[0].index][3];
+        const crap = complexityData[data[0].index][4];
+        return `<table class="bb-tooltip"><tbody>
+            <tr><th colspan="2">${targetName}</th></tr>
+            <tr class="bb-tooltip-name-complexity"><td>Coverage</td><td class="name">${coverage}%</td></tr>
+            <tr class="bb-tooltip-name-complexity"><td>Complexity</td><td class="value">${complexity}</td></tr>
+            <tr class="bb-tooltip-name-complexity"><td>Crap</td><td class="value">${crap}</td></tr>
+          </tbody></table>`;
+      },
+      grouped: false,
+    },
+  });
+  const classComplexityData = JSON.parse(document.getElementById('complexity_class').textContent);
+  bb.generate(
+    scatterConfig("class", classComplexityData)
+  );
+  const methodComplexityData = JSON.parse(document.getElementById('complexity_method').textContent);
+  bb.generate(
+    scatterConfig("method", methodComplexityData),
+  );
+  </script>
+ </body>
+</html>

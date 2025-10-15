@@ -15,6 +15,9 @@ pest()->extend(Tests\TestCase::class)
     ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
     ->in('Feature');
 
+pest()->extend(Tests\TestCase::class)
+    ->in('Unit');
+
 /*
 |--------------------------------------------------------------------------
 | Expectations
@@ -41,7 +44,12 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function createAdminWithSession()
 {
-    // ..
+    $admin = \App\Models\User::factory()->create();
+    $admin->giveRole('admin');
+    $admin = $admin->fresh();
+    $admin->makeSessionRoles();
+    $admin->makeSessionPermissions();
+    return $admin;
 }
