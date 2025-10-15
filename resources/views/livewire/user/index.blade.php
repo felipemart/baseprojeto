@@ -54,9 +54,6 @@
             @scope('cell_roles', $user)
             {{ $user->role->name }}
             @endscope
-            @scope('cell_empresa', $user)
-            {{ $user->empresa->nome_fantasia }}
-            @endscope
 
             @scope('actions', $user)
             <span class="flex">

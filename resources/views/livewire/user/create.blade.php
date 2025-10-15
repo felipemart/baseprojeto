@@ -17,17 +17,7 @@
                         option-label="name"
                         placeholder="Selecionar"
                         placeholder-value=""
-                        wire:change="changeEmpresa"
                         wire:model="roleSelect" class=""/>
-
-                    <x-select
-                        label="Empresa"
-                        :options="$empresa"
-                        option-value="id"
-                        option-label="nome_fantasia"
-                        placeholder="Selecionar"
-                        placeholder-value=""
-                        wire:model="empresaSelect" class=""/>
 
                 </x-form>
             </div>
