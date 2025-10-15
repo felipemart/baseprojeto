@@ -7,25 +7,25 @@ use App\Models\User;
 use Illuminate\Support\Facades\Password;
 use Livewire\Livewire;
 
-use function Pest\Laravel\{get};
+use function Pest\Laravel\get;
 
-it('password reset page can be rendered with valid token', function () {
-    $user = User::factory()->create();
+it('password reset page can be rendered with valid token', function (): void {
+    $user  = User::factory()->create();
     $token = Password::createToken($user);
 
     get(route('password.reset', ['token' => $token, 'email' => $user->email]))
         ->assertSuccessful();
 });
 
-it('password reset redirects with invalid token', function () {
+it('password reset redirects with invalid token', function (): void {
     $user = User::factory()->create();
-    
+
     Livewire::test(Reset::class, ['token' => 'invalid-token', 'email' => $user->email])
         ->assertRedirect(route('login'));
 });
 
-it('password reset requires password', function () {
-    $user = User::factory()->create();
+it('password reset requires password', function (): void {
+    $user  = User::factory()->create();
     $token = Password::createToken($user);
 
     Livewire::test(Reset::class, ['token' => $token, 'email' => $user->email])
@@ -34,8 +34,8 @@ it('password reset requires password', function () {
         ->assertHasErrors(['password' => 'required']);
 });
 
-it('password reset requires password confirmation', function () {
-    $user = User::factory()->create();
+it('password reset requires password confirmation', function (): void {
+    $user  = User::factory()->create();
     $token = Password::createToken($user);
 
     Livewire::test(Reset::class, ['token' => $token, 'email' => $user->email])
@@ -45,8 +45,8 @@ it('password reset requires password confirmation', function () {
         ->assertHasErrors(['password' => 'confirmed']);
 });
 
-it('password reset requires minimum 8 characters', function () {
-    $user = User::factory()->create();
+it('password reset requires minimum 8 characters', function (): void {
+    $user  = User::factory()->create();
     $token = Password::createToken($user);
 
     Livewire::test(Reset::class, ['token' => $token, 'email' => $user->email])
@@ -56,8 +56,8 @@ it('password reset requires minimum 8 characters', function () {
         ->assertHasErrors(['password' => 'min']);
 });
 
-it('password reset requires valid email', function () {
-    $user = User::factory()->create();
+it('password reset requires valid email', function (): void {
+    $user  = User::factory()->create();
     $token = Password::createToken($user);
 
     Livewire::test(Reset::class, ['token' => $token, 'email' => $user->email])
@@ -68,8 +68,8 @@ it('password reset requires valid email', function () {
         ->assertHasErrors(['email' => 'email']);
 });
 
-it('can reset password successfully', function () {
-    $user = User::factory()->create();
+it('can reset password successfully', function (): void {
+    $user  = User::factory()->create();
     $token = Password::createToken($user);
 
     Livewire::test(Reset::class, ['token' => $token, 'email' => $user->email])
@@ -80,14 +80,12 @@ it('can reset password successfully', function () {
         ->assertSessionHas('status', 'Senha resetada com sucesso.');
 });
 
-it('obfuscar email computed property works in reset', function () {
-    $user = User::factory()->create(['email' => 'test@example.com']);
+it('obfuscar email computed property works in reset', function (): void {
+    $user  = User::factory()->create(['email' => 'test@example.com']);
     $token = Password::createToken($user);
 
     $component = Livewire::test(Reset::class, ['token' => $token, 'email' => $user->email]);
-    
+
     expect($component->obfuscarEmail)->toContain('*');
     expect($component->obfuscarEmail)->toContain('@example.com');
 });
-
-

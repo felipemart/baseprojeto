@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Database\Factories;
 
@@ -24,9 +24,8 @@ class PermissionFactory extends Factory
     {
         return [
             'permission' => $this->faker->unique()->slug() . '_' . $this->faker->randomNumber(5),
-            'descricao' => $this->faker->sentence(),
-            'role_id' => Role::factory(),
+            'descricao'  => $this->faker->sentence(),
+            'role_id'    => Role::factory(),
         ];
     }
 }
-

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use App\Livewire\Auth\Login;
 use App\Models\User;
@@ -11,19 +11,19 @@ use Livewire\Livewire;
 use function Pest\Laravel\assertAuthenticated;
 use function Pest\Laravel\assertGuest;
 
-beforeEach(function () {
+beforeEach(function (): void {
     RateLimiter::clear('login');
 });
 
-test('login page can be rendered', function () {
+test('login page can be rendered', function (): void {
     $response = $this->get(route('login'));
 
     $response->assertOk();
 });
 
-test('users can authenticate using the login form', function () {
+test('users can authenticate using the login form', function (): void {
     $user = User::factory()->create([
-        'email' => 'test@example.com',
+        'email'    => 'test@example.com',
         'password' => Hash::make('password'),
     ]);
 
@@ -36,9 +36,9 @@ test('users can authenticate using the login form', function () {
     assertAuthenticated();
 });
 
-test('users cannot authenticate with invalid password', function () {
+test('users cannot authenticate with invalid password', function (): void {
     $user = User::factory()->create([
-        'email' => 'test@example.com',
+        'email'    => 'test@example.com',
         'password' => Hash::make('password'),
     ]);
 
@@ -51,7 +51,7 @@ test('users cannot authenticate with invalid password', function () {
     assertGuest();
 });
 
-test('login requires email', function () {
+test('login requires email', function (): void {
     Livewire::test(Login::class)
         ->set('email', '')
         ->set('password', 'password')
@@ -59,7 +59,7 @@ test('login requires email', function () {
         ->assertHasErrors(['email' => 'required']);
 });
 
-test('login requires valid email format', function () {
+test('login requires valid email format', function (): void {
     Livewire::test(Login::class)
         ->set('email', 'not-an-email')
         ->set('password', 'password')
@@ -67,7 +67,7 @@ test('login requires valid email format', function () {
         ->assertHasErrors(['email' => 'email']);
 });
 
-test('login requires password', function () {
+test('login requires password', function (): void {
     Livewire::test(Login::class)
         ->set('email', 'test@example.com')
         ->set('password', '')
@@ -75,9 +75,9 @@ test('login requires password', function () {
         ->assertHasErrors(['password' => 'required']);
 });
 
-test('login is rate limited after 5 failed attempts', function () {
+test('login is rate limited after 5 failed attempts', function (): void {
     $user = User::factory()->create([
-        'email' => 'test@example.com',
+        'email'    => 'test@example.com',
         'password' => Hash::make('password'),
     ]);
 
@@ -99,9 +99,9 @@ test('login is rate limited after 5 failed attempts', function () {
     assertGuest();
 });
 
-test('successful login creates session for permissions and roles', function () {
+test('successful login creates session for permissions and roles', function (): void {
     $user = User::factory()->create([
-        'email' => 'test@example.com',
+        'email'    => 'test@example.com',
         'password' => Hash::make('password'),
     ]);
 
@@ -117,4 +117,3 @@ test('successful login creates session for permissions and roles', function () {
 
 // Removido: teste de redirecionamento de usuário autenticado
 // O comportamento esperado pode variar dependendo da configuração do middleware
-

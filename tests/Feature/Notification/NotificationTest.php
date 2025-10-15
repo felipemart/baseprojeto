@@ -1,15 +1,15 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use App\Models\User;
 use App\Notifications\EmailRecuperacaoSenha;
 use Illuminate\Support\Facades\Notification;
 
-test('user can receive password reset notification', function () {
+test('user can receive password reset notification', function (): void {
     Notification::fake();
 
-    $user = User::factory()->create(['email' => 'test@example.com']);
+    $user  = User::factory()->create(['email' => 'test@example.com']);
     $token = 'fake-token';
 
     $user->sendPasswordResetNotification($token);
@@ -17,23 +17,21 @@ test('user can receive password reset notification', function () {
     Notification::assertSentTo(
         $user,
         EmailRecuperacaoSenha::class,
-        function ($notification, $channels) use ($token) {
-            return $notification->token === $token;
-        }
+        fn ($notification, $channels): bool => $notification->token === $token
     );
 });
 
-test('password reset notification has correct token', function () {
-    $token = 'test-token-123';
+test('password reset notification has correct token', function (): void {
+    $token        = 'test-token-123';
     $notification = new EmailRecuperacaoSenha($token);
 
     expect($notification->token)->toBe($token);
 });
 
-test('password reset notification uses mail channel', function () {
+test('password reset notification uses mail channel', function (): void {
     Notification::fake();
 
-    $user = User::factory()->create();
+    $user  = User::factory()->create();
     $token = 'test-token';
 
     $user->sendPasswordResetNotification($token);
@@ -41,9 +39,6 @@ test('password reset notification uses mail channel', function () {
     Notification::assertSentTo(
         $user,
         EmailRecuperacaoSenha::class,
-        function ($notification, $channels) {
-            return in_array('mail', $channels);
-        }
+        fn ($notification, $channels): bool => in_array('mail', $channels)
     );
 });
-

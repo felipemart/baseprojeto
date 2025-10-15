@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Notifications\BemVindoNotification;
 use App\Notifications\EmailCriacaoSenha;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Password;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -23,9 +22,7 @@ class Create extends Component
 
     public Collection $roles;
 
-
     public ?int $roleSelect = null;
-
 
     public ?int $id = null;
 
@@ -88,16 +85,14 @@ class Create extends Component
         ];
     }
 
-    
-
     public function save(): bool
     {
         $this->validate();
         $this->user = User::create([
-            'name'       => $this->name,
-            'email'      => $this->email,
-            'password'   => bcrypt(str()->random(10)),
-            'role_id'    => $this->roleSelect,
+            'name'     => $this->name,
+            'email'    => $this->email,
+            'password' => bcrypt(str()->random(10)),
+            'role_id'  => $this->roleSelect,
 
         ]);
 

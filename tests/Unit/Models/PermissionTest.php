@@ -9,45 +9,45 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-describe('Permission Model', function () {
-    it('pode criar uma permissão', function () {
+describe('Permission Model', function (): void {
+    it('pode criar uma permissão', function (): void {
         $permission = Permission::factory()->create([
             'permission' => 'edit-posts',
-            'descricao' => 'Pode editar posts',
+            'descricao'  => 'Pode editar posts',
         ]);
 
         expect($permission->permission)->toBe('edit-posts');
         expect($permission->descricao)->toBe('Pode editar posts');
     });
 
-    it('possui atributos fillable corretos', function () {
-        $fillable = ['permission', 'descricao', 'role_id'];
+    it('possui atributos fillable corretos', function (): void {
+        $fillable   = ['permission', 'descricao', 'role_id'];
         $permission = new Permission();
 
         expect($permission->getFillable())->toBe($fillable);
     });
 
-    it('pode pertencer a múltiplos usuários', function () {
+    it('pode pertencer a múltiplos usuários', function (): void {
         $permission = Permission::factory()->create();
-        $user1 = User::factory()->create();
-        $user2 = User::factory()->create();
+        $user1      = User::factory()->create();
+        $user2      = User::factory()->create();
 
         $permission->users()->attach([$user1->id, $user2->id]);
 
         expect($permission->users)->toHaveCount(2);
     });
 
-    it('pode pertencer a múltiplas roles', function () {
+    it('pode pertencer a múltiplas roles', function (): void {
         $permission = Permission::factory()->create();
-        $role1 = Role::factory()->create();
-        $role2 = Role::factory()->create();
+        $role1      = Role::factory()->create();
+        $role2      = Role::factory()->create();
 
         $permission->roles()->attach([$role1->id, $role2->id]);
 
         expect($permission->roles)->toHaveCount(2);
     });
 
-    it('relacionamento users retorna instância BelongsToMany', function () {
+    it('relacionamento users retorna instância BelongsToMany', function (): void {
         $permission = new Permission();
 
         expect($permission->users())->toBeInstanceOf(
@@ -55,7 +55,7 @@ describe('Permission Model', function () {
         );
     });
 
-    it('relacionamento roles retorna instância BelongsToMany', function () {
+    it('relacionamento roles retorna instância BelongsToMany', function (): void {
         $permission = new Permission();
 
         expect($permission->roles())->toBeInstanceOf(
@@ -63,24 +63,23 @@ describe('Permission Model', function () {
         );
     });
 
-    it('pode criar permissão com role_id', function () {
+    it('pode criar permissão com role_id', function (): void {
         $permission = Permission::factory()->create([
             'permission' => 'view-dashboard',
-            'descricao' => 'Visualizar dashboard',
-            'role_id' => 1,
+            'descricao'  => 'Visualizar dashboard',
+            'role_id'    => 1,
         ]);
 
         expect($permission->role_id)->toBe(1);
     });
 
-    it('can sync users', function () {
+    it('can sync users', function (): void {
         $permission = Permission::factory()->create();
-        $user1 = User::factory()->create();
-        $user2 = User::factory()->create();
+        $user1      = User::factory()->create();
+        $user2      = User::factory()->create();
 
         $permission->users()->sync([$user1->id, $user2->id]);
-        
+
         expect($permission->users)->toHaveCount(2);
     });
 });
-

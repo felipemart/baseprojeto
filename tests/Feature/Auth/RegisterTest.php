@@ -1,35 +1,35 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 use App\Livewire\Auth\Register;
 use App\Models\User;
 use Livewire\Livewire;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->admin = createAdminWithSession();
 });
 
-test('register page requires authentication', function () {
+test('register page requires authentication', function (): void {
     $this->get(route('auth.register'))
         ->assertRedirect(route('login'));
 });
 
-test('admin can access register page', function () {
+test('admin can access register page', function (): void {
     $this->actingAs($this->admin)
         ->get(route('auth.register'))
         ->assertOk();
 });
 
-test('register component can be mounted', function () {
+test('register component can be mounted', function (): void {
     $this->actingAs($this->admin);
 
     $component = Livewire::test(Register::class);
-    
+
     expect($component)->not->toBeNull();
 });
 
-test('register requires name', function () {
+test('register requires name', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Register::class)
@@ -40,7 +40,7 @@ test('register requires name', function () {
         ->assertHasErrors(['name' => 'required']);
 });
 
-test('register requires email', function () {
+test('register requires email', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Register::class)
@@ -51,7 +51,7 @@ test('register requires email', function () {
         ->assertHasErrors(['email' => 'required']);
 });
 
-test('register requires valid email format', function () {
+test('register requires valid email format', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Register::class)
@@ -62,7 +62,7 @@ test('register requires valid email format', function () {
         ->assertHasErrors(['email' => 'email']);
 });
 
-test('register requires password', function () {
+test('register requires password', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Register::class)
@@ -74,7 +74,7 @@ test('register requires password', function () {
         ->assertHasErrors(['password' => 'required']);
 });
 
-test('register requires email confirmation', function () {
+test('register requires email confirmation', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Register::class)
@@ -86,7 +86,7 @@ test('register requires email confirmation', function () {
         ->assertHasErrors(['email' => 'confirmed']);
 });
 
-test('register requires unique email', function () {
+test('register requires unique email', function (): void {
     $this->actingAs($this->admin);
     $existingUser = User::factory()->create(['email' => 'existing@example.com']);
 
@@ -99,8 +99,7 @@ test('register requires unique email', function () {
         ->assertHasErrors(['email' => 'unique']);
 });
 
-
-test('register name respects max length', function () {
+test('register name respects max length', function (): void {
     $this->actingAs($this->admin);
     $longName = str_repeat('a', 256);
 
@@ -113,7 +112,7 @@ test('register name respects max length', function () {
         ->assertHasErrors(['name' => 'max']);
 });
 
-test('register email respects max length', function () {
+test('register email respects max length', function (): void {
     $this->actingAs($this->admin);
     $longEmail = str_repeat('a', 250) . '@test.com';
 
