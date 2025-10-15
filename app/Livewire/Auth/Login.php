@@ -69,6 +69,7 @@ class Login extends Component
 
     private function virificaRateLimiter(): bool
     {
+        echo 'teste';
         if (RateLimiter::tooManyAttempts($this->keyLimiter(), 5)) {
             $this->addError('rateLimiter', 'Ultrapassou o limite de tentativas. Tente novamente em ' . RateLimiter::availableIn($this->keyLimiter()) . ' segundos.');
 
