@@ -5,7 +5,7 @@ declare(strict_types = 1);
 use App\Livewire\User\Delete;
 use App\Models\User;
 
-test('user delete component can be rendered', function (): void {
+test('componente de exclusão de usuário pode ser renderizado', function (): void {
     $admin = createAdminWithSession();
 
     $this->actingAs($admin);
@@ -14,7 +14,7 @@ test('user delete component can be rendered', function (): void {
         ->assertOk();
 });
 
-test('modal opens when user deletion event is dispatched', function (): void {
+test('modal abre quando evento de exclusão de usuário é disparado', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
 
@@ -26,7 +26,7 @@ test('modal opens when user deletion event is dispatched', function (): void {
         ->assertSet('user.id', $user->id);
 });
 
-test('user cannot delete themselves', function (): void {
+test('usuário não pode excluir a si mesmo', function (): void {
     $admin = createAdminWithSession();
 
     $this->actingAs($admin);
@@ -41,7 +41,7 @@ test('user cannot delete themselves', function (): void {
     $this->assertDatabaseHas('users', ['id' => $admin->id, 'deleted_at' => null]);
 });
 
-test('user delete requires confirmation', function (): void {
+test('exclusão de usuário requer confirmação', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
 
@@ -55,7 +55,7 @@ test('user delete requires confirmation', function (): void {
         ->assertHasErrors('confirmDestroy');
 });
 
-test('user delete requires correct confirmation text', function (): void {
+test('exclusão de usuário requer texto de confirmação correto', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
 
@@ -69,7 +69,7 @@ test('user delete requires correct confirmation text', function (): void {
         ->assertHasErrors('confirmDestroy');
 });
 
-test('admin can delete user with correct confirmation', function (): void {
+test('admin pode excluir usuário com confirmação correta', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
 
@@ -86,7 +86,7 @@ test('admin can delete user with correct confirmation', function (): void {
     $this->assertSoftDeleted('users', ['id' => $user->id]);
 });
 
-test('deleted user has deleted_by set', function (): void {
+test('usuário excluído tem deleted_by definido', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
 

@@ -5,7 +5,7 @@ declare(strict_types = 1);
 use App\Livewire\User\Show;
 use App\Models\User;
 
-test('user show component can be rendered', function (): void {
+test('componente de visualização de usuário pode ser renderizado', function (): void {
     $admin = createAdminWithSession();
 
     $this->actingAs($admin);
@@ -14,7 +14,7 @@ test('user show component can be rendered', function (): void {
         ->assertOk();
 });
 
-test('modal opens when user showing event is dispatched', function (): void {
+test('modal abre quando evento de visualização de usuário é disparado', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
 
@@ -26,7 +26,7 @@ test('modal opens when user showing event is dispatched', function (): void {
         ->assertSet('user.id', $user->id);
 });
 
-test('user show can load user details', function (): void {
+test('visualização de usuário pode carregar detalhes do usuário', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create([
         'name'  => 'Test User',
@@ -42,7 +42,7 @@ test('user show can load user details', function (): void {
         ->assertSet('user.email', 'test@example.com');
 });
 
-test('user show can load deleted users', function (): void {
+test('visualização de usuário pode carregar usuários excluídos', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
     $user->delete();

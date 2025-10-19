@@ -5,7 +5,7 @@ declare(strict_types = 1);
 use App\Livewire\User\Restore;
 use App\Models\User;
 
-test('user restore component can be rendered', function (): void {
+test('componente de restauração de usuário pode ser renderizado', function (): void {
     $admin = createAdminWithSession();
 
     $this->actingAs($admin);
@@ -14,7 +14,7 @@ test('user restore component can be rendered', function (): void {
         ->assertOk();
 });
 
-test('modal opens when user restoring event is dispatched', function (): void {
+test('modal abre quando evento de restauração de usuário é disparado', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
     $user->delete();
@@ -27,7 +27,7 @@ test('modal opens when user restoring event is dispatched', function (): void {
         ->assertSet('user.id', $user->id);
 });
 
-test('user restore requires confirmation', function (): void {
+test('restauração de usuário requer confirmação', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
     $user->delete();
@@ -42,7 +42,7 @@ test('user restore requires confirmation', function (): void {
         ->assertHasErrors('confirmRestore');
 });
 
-test('user restore requires correct confirmation text', function (): void {
+test('restauração de usuário requer texto de confirmação correto', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
     $user->delete();
@@ -57,7 +57,7 @@ test('user restore requires correct confirmation text', function (): void {
         ->assertHasErrors('confirmRestore');
 });
 
-test('admin can restore deleted user with correct confirmation', function (): void {
+test('admin pode restaurar usuário excluído com confirmação correta', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
     $user->delete();
@@ -75,7 +75,7 @@ test('admin can restore deleted user with correct confirmation', function (): vo
     $this->assertDatabaseHas('users', ['id' => $user->id, 'deleted_at' => null]);
 });
 
-test('restored user has restored_by set', function (): void {
+test('usuário restaurado tem restored_by definido', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
     $user->delete();
@@ -94,7 +94,7 @@ test('restored user has restored_by set', function (): void {
     expect($user->restored_at)->not->toBeNull();
 });
 
-test('user cannot restore themselves', function (): void {
+test('usuário não pode restaurar a si mesmo', function (): void {
     $admin = createAdminWithSession();
     $admin->delete();
 

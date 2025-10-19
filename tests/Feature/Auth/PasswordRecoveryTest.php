@@ -6,26 +6,26 @@ use App\Livewire\Auth\Password\Recovery;
 use App\Models\User;
 use Illuminate\Support\Facades\Password;
 
-test('password recovery page can be rendered', function (): void {
+test('página de recuperação de senha pode ser renderizada', function (): void {
     Livewire::test(Recovery::class)
         ->assertOk();
 });
 
-test('password recovery requires email', function (): void {
+test('recuperação de senha requer email', function (): void {
     Livewire::test(Recovery::class)
         ->set('email', '')
         ->call('recuperacaoSenha')
         ->assertHasErrors(['email' => 'required']);
 });
 
-test('password recovery requires valid email format', function (): void {
+test('recuperação de senha requer formato de email válido', function (): void {
     Livewire::test(Recovery::class)
         ->set('email', 'invalid-email')
         ->call('recuperacaoSenha')
         ->assertHasErrors(['email' => 'email']);
 });
 
-test('password recovery sends reset link', function (): void {
+test('recuperação de senha envia link de redefinição', function (): void {
     $user = User::factory()->create(['email' => 'test@example.com']);
 
     Password::shouldReceive('sendResetLink')
@@ -42,7 +42,7 @@ test('password recovery sends reset link', function (): void {
     expect($component->message)->toContain('Email enviado');
 });
 
-test('password recovery displays success message', function (): void {
+test('recuperação de senha exibe mensagem de sucesso', function (): void {
     $user = User::factory()->create();
 
     Password::shouldReceive('sendResetLink')

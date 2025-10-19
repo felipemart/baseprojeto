@@ -88,19 +88,19 @@ class Create extends Component
     public function save(): bool
     {
         $this->validate();
-        $this->user = User::create([
-            'name'     => $this->name,
-            'email'    => $this->email,
-            'password' => bcrypt(str()->random(10)),
-            'role_id'  => $this->roleSelect,
+        
+        try {
+            $this->user = User::create([
+                'name'     => $this->name,
+                'email'    => $this->email,
+                'password' => bcrypt(str()->random(10)),
+                'role_id'  => $this->roleSelect,
+            ]);
 
-        ]);
+            $this->user->notify(new BemVindoNotification());
+            $token = Password::createToken($this->user);
+            $this->user->notify(new EmailCriacaoSenha($token));
 
-        $this->user->notify(new BemVindoNotification());
-        $token = Password::createToken($this->user);
-        $this->user->notify(new EmailCriacaoSenha($token));
-
-        if ($this->user->name) {
             $this->success(
                 'Usuário criado com sucesso!',
                 null,
@@ -111,16 +111,17 @@ class Create extends Component
             );
 
             return true;
-        }
-        $this->error(
-            'Erro ao criar o usuário!',
-            null,
-            'toast-top toast-end',
-            'o-exclamation-triangle',
-            'alert-info',
-            3000
-        );
+        } catch (\Exception $e) {
+            $this->error(
+                'Erro ao criar o usuário!',
+                null,
+                'toast-top toast-end',
+                'o-exclamation-triangle',
+                'alert-error',
+                3000
+            );
 
-        return false;
+            return false;
+        }
     }
 }

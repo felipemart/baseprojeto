@@ -4,13 +4,13 @@ declare(strict_types = 1);
 
 use App\View\Components\AppBrand;
 
-test('app brand component can be created', function (): void {
+test('componente app brand pode ser criado', function (): void {
     $component = new AppBrand();
 
     expect($component)->toBeInstanceOf(AppBrand::class);
 });
 
-test('app brand component can render', function (): void {
+test('componente app brand pode ser renderizado', function (): void {
     $component = new AppBrand();
 
     $view = $component->render();
@@ -19,7 +19,7 @@ test('app brand component can render', function (): void {
     expect($view)->toContain('app');
 });
 
-test('app brand component contains link', function (): void {
+test('componente app brand contém link', function (): void {
     $component = new AppBrand();
 
     $view = $component->render();
@@ -28,7 +28,7 @@ test('app brand component contains link', function (): void {
     expect($view)->toContain('wire:navigate');
 });
 
-test('app brand component contains icon', function (): void {
+test('componente app brand contém ícone', function (): void {
     $component = new AppBrand();
 
     $view = $component->render();
@@ -37,7 +37,7 @@ test('app brand component contains icon', function (): void {
     expect($view)->toContain('s-cube');
 });
 
-test('app brand component contains collapsed states', function (): void {
+test('componente app brand contém estados colapsados', function (): void {
     $component = new AppBrand();
 
     $view = $component->render();

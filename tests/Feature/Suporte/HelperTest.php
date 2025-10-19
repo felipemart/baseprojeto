@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-test('obfuscarEmail obfuscates email correctly', function (): void {
+test('obfuscarEmail ofusca email corretamente', function (): void {
     $email      = 'john.doe@example.com';
     $obfuscated = obfuscarEmail($email);
 
@@ -11,34 +11,34 @@ test('obfuscarEmail obfuscates email correctly', function (): void {
     expect($obfuscated)->not->toBe($email);
 });
 
-test('obfuscarEmail handles short emails', function (): void {
+test('obfuscarEmail lida com emails curtos', function (): void {
     $email      = 'a@example.com';
     $obfuscated = obfuscarEmail($email);
 
     expect($obfuscated)->toContain('@example.com');
 });
 
-test('obfuscarEmail returns empty string for null', function (): void {
+test('obfuscarEmail retorna string vazia para null', function (): void {
     $result = obfuscarEmail(null);
     expect($result)->toBe('');
 });
 
-test('obfuscarEmail returns empty string for empty string', function (): void {
+test('obfuscarEmail retorna string vazia para string vazia', function (): void {
     $result = obfuscarEmail('');
     expect($result)->toBe('');
 });
 
-test('obfuscarEmail returns empty string for invalid email format', function (): void {
+test('obfuscarEmail retorna string vazia para formato de email inválido', function (): void {
     $result = obfuscarEmail('not-an-email');
     expect($result)->toBe('');
 });
 
-test('obfuscarEmail handles emails with multiple @ symbols', function (): void {
+test('obfuscarEmail lida com emails com múltiplos símbolos @', function (): void {
     $result = obfuscarEmail('user@@example.com');
     expect($result)->toBe('');
 });
 
-test('obfuscarEmail obfuscates 75 percent of username', function (): void {
+test('obfuscarEmail ofusca 75 porcento do nome de usuário', function (): void {
     $email      = 'testuser@example.com'; // 8 chars before @
     $obfuscated = obfuscarEmail($email);
 
@@ -47,7 +47,7 @@ test('obfuscarEmail obfuscates 75 percent of username', function (): void {
     expect($asteriskCount)->toBe(6);
 });
 
-test('obfuscarEmail preserves domain', function (): void {
+test('obfuscarEmail preserva o domínio', function (): void {
     $email      = 'john@example.com';
     $obfuscated = obfuscarEmail($email);
 

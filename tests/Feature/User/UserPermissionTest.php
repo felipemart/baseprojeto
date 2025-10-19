@@ -6,7 +6,7 @@ use App\Livewire\User\PermissionUser;
 use App\Models\Permission;
 use App\Models\User;
 
-test('user permission component can be mounted', function (): void {
+test('componente de permissão de usuário pode ser montado', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
 
@@ -17,7 +17,7 @@ test('user permission component can be mounted', function (): void {
         ->assertSet('user.id', $user->id);
 });
 
-test('user permission displays available permissions', function (): void {
+test('permissão de usuário exibe permissões disponíveis', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
 
@@ -34,7 +34,7 @@ test('user permission displays available permissions', function (): void {
     expect($permissions)->not->toBeEmpty();
 });
 
-test('user permission can search permissions', function (): void {
+test('permissão de usuário pode buscar permissões', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
 
@@ -57,7 +57,7 @@ test('user permission can search permissions', function (): void {
     expect($permissions->first()->descricao)->toContain('User');
 });
 
-test('user permission can update user permissions', function (): void {
+test('permissão de usuário pode atualizar permissões do usuário', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
 
@@ -74,7 +74,7 @@ test('user permission can update user permissions', function (): void {
     expect($user->fresh()->hasPermission($permission->permission))->toBeTrue();
 });
 
-test('user permission can remove user permissions', function (): void {
+test('permissão de usuário pode remover permissões do usuário', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
 
@@ -93,7 +93,7 @@ test('user permission can remove user permissions', function (): void {
     expect($user->fresh()->hasPermission($permission->permission))->toBeFalse();
 });
 
-test('user permission can give all permissions', function (): void {
+test('permissão de usuário pode dar todas as permissões', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
 
@@ -110,7 +110,7 @@ test('user permission can give all permissions', function (): void {
     expect($user->permissions)->toHaveCount(3);
 });
 
-test('user permission filters permissions by user role', function (): void {
+test('permissão de usuário filtra permissões por role do usuário', function (): void {
     $admin = createAdminWithSession();
     $user  = User::factory()->create();
 

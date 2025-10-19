@@ -12,21 +12,21 @@ describe('EmailRecuperacaoSenha', function (): void {
         EmailRecuperacaoSenha::$createUrlCallback = null;
     });
 
-    it('deve armazenar o token', function (): void {
+    test('deve armazenar o token', function (): void {
         $token        = 'test-token-456';
         $notification = new EmailRecuperacaoSenha($token);
 
         expect($notification->token)->toBe($token);
     });
 
-    it('deve usar o canal mail', function (): void {
+    test('deve usar o canal mail', function (): void {
         $notification = new EmailRecuperacaoSenha('token');
         $notifiable   = m::mock('stdClass');
 
         expect($notification->via($notifiable))->toBe(['mail']);
     });
 
-    it('deve retornar uma MailMessage', function (): void {
+    test('deve retornar uma MailMessage', function (): void {
         $notification = new EmailRecuperacaoSenha('token');
         $notifiable   = m::mock('stdClass');
         $notifiable->shouldReceive('getEmailForPasswordReset')->andReturn('test@example.com');
@@ -36,7 +36,7 @@ describe('EmailRecuperacaoSenha', function (): void {
         expect($mail)->toBeInstanceOf(MailMessage::class);
     });
 
-    it('deve ter o subject correto', function (): void {
+    test('deve ter o subject correto', function (): void {
         $notification = new EmailRecuperacaoSenha('token');
         $notifiable   = m::mock('stdClass');
         $notifiable->shouldReceive('getEmailForPasswordReset')->andReturn('test@example.com');
@@ -46,7 +46,7 @@ describe('EmailRecuperacaoSenha', function (): void {
         expect($mail->subject)->toBe('Notificação de redefinição de senha');
     });
 
-    it('deve ter greeting correto', function (): void {
+    test('deve ter greeting correto', function (): void {
         $notification = new EmailRecuperacaoSenha('token');
         $notifiable   = m::mock('stdClass');
         $notifiable->shouldReceive('getEmailForPasswordReset')->andReturn('test@example.com');
@@ -56,7 +56,7 @@ describe('EmailRecuperacaoSenha', function (): void {
         expect($mail->greeting)->toBe('Redefinição de senha');
     });
 
-    it('deve ter action button', function (): void {
+    test('deve ter action button', function (): void {
         $notification = new EmailRecuperacaoSenha('token');
         $notifiable   = m::mock('stdClass');
         $notifiable->shouldReceive('getEmailForPasswordReset')->andReturn('test@example.com');
@@ -67,7 +67,7 @@ describe('EmailRecuperacaoSenha', function (): void {
         expect($mail->actionUrl)->not->toBeNull();
     });
 
-    it('deve mencionar tempo de expiração', function (): void {
+    test('deve mencionar tempo de expiração', function (): void {
         $notification = new EmailRecuperacaoSenha('token');
         $notifiable   = m::mock('stdClass');
         $notifiable->shouldReceive('getEmailForPasswordReset')->andReturn('test@example.com');
@@ -89,14 +89,14 @@ describe('EmailRecuperacaoSenha', function (): void {
         expect($hasExpirationLine)->toBeTrue();
     });
 
-    it('toArray deve retornar array vazio', function (): void {
+    test('toArray deve retornar array vazio', function (): void {
         $notification = new EmailRecuperacaoSenha('token');
         $notifiable   = m::mock('stdClass');
 
         expect($notification->toArray($notifiable))->toBe([]);
     });
 
-    it('deve usar callback customizado se fornecido', function (): void {
+    test('deve usar callback customizado se fornecido', function (): void {
         EmailRecuperacaoSenha::$createUrlCallback = (fn ($notifiable, string $token): string => 'https://custom-reset.com/' . $token);
 
         $notification = new EmailRecuperacaoSenha('test-token');

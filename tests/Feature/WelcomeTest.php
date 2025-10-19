@@ -8,12 +8,12 @@ use Livewire\Livewire;
 use function Pest\Laravel\actingAs;
 use function Pest\Laravel\get;
 
-it('welcome page requires authentication', function (): void {
+test('página de boas-vindas requer autenticação', function (): void {
     get(route('dashboard'))
         ->assertRedirect(route('login'));
 });
 
-it('authenticated user can see welcome page', function (): void {
+test('usuário autenticado pode ver página de boas-vindas', function (): void {
     $admin = createAdminWithSession();
 
     actingAs($admin)
@@ -21,34 +21,34 @@ it('authenticated user can see welcome page', function (): void {
         ->assertSuccessful();
 });
 
-it('welcome component can be mounted', function (): void {
+test('componente welcome pode ser montado', function (): void {
     Livewire::test(Welcome::class)
         ->assertSuccessful();
 });
 
-it('welcome component has default search value', function (): void {
+test('componente welcome tem valor padrão de busca', function (): void {
     Livewire::test(Welcome::class)
         ->assertSet('search', '');
 });
 
-it('welcome component has default drawer value', function (): void {
+test('componente welcome tem valor padrão de drawer', function (): void {
     Livewire::test(Welcome::class)
         ->assertSet('drawer', false);
 });
 
-it('welcome component has default sortBy', function (): void {
+test('componente welcome tem sortBy padrão', function (): void {
     Livewire::test(Welcome::class)
         ->assertSet('sortBy', ['column' => 'name', 'direction' => 'asc']);
 });
 
-it('welcome component can clear filters', function (): void {
+test('componente welcome pode limpar filtros', function (): void {
     Livewire::test(Welcome::class)
         ->set('search', 'test')
         ->call('clear')
         ->assertSet('search', '');
 });
 
-it('welcome component can delete item', function (): void {
+test('componente welcome pode deletar item', function (): void {
     Livewire::test(Welcome::class)
         ->call('delete', 1);
 

@@ -6,13 +6,13 @@ use App\Models\User;
 use App\Notifications\BemVindoNotification;
 use Illuminate\Support\Facades\Notification;
 
-test('bem vindo notification can be created', function (): void {
+test('notificação de boas-vindas pode ser criada', function (): void {
     $notification = new BemVindoNotification();
 
     expect($notification)->toBeInstanceOf(BemVindoNotification::class);
 });
 
-test('bem vindo notification uses mail channel', function (): void {
+test('notificação de boas-vindas usa canal de email', function (): void {
     $user         = User::factory()->create();
     $notification = new BemVindoNotification();
 
@@ -21,7 +21,7 @@ test('bem vindo notification uses mail channel', function (): void {
     expect($channels)->toContain('mail');
 });
 
-test('bem vindo notification has correct mail structure', function (): void {
+test('notificação de boas-vindas tem estrutura de email correta', function (): void {
     $user         = User::factory()->create();
     $notification = new BemVindoNotification();
 
@@ -30,7 +30,7 @@ test('bem vindo notification has correct mail structure', function (): void {
     expect($mail->subject)->toBe('Email de boas vindas');
 });
 
-test('bem vindo notification has greeting', function (): void {
+test('notificação de boas-vindas tem saudação', function (): void {
     $user         = User::factory()->create();
     $notification = new BemVindoNotification();
 
@@ -39,7 +39,7 @@ test('bem vindo notification has greeting', function (): void {
     expect($mail->greeting)->toBe('Seja bem vindo!');
 });
 
-test('bem vindo notification to array returns empty', function (): void {
+test('notificação de boas-vindas toArray retorna vazio', function (): void {
     $user         = User::factory()->create();
     $notification = new BemVindoNotification();
 
@@ -49,7 +49,7 @@ test('bem vindo notification to array returns empty', function (): void {
     expect($array)->toBeEmpty();
 });
 
-test('user can receive bem vindo notification', function (): void {
+test('usuário pode receber notificação de boas-vindas', function (): void {
     Notification::fake();
 
     $user = User::factory()->create();

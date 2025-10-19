@@ -11,14 +11,14 @@ describe('BemVindoNotification', function (): void {
         m::close();
     });
 
-    it('deve usar o canal mail', function (): void {
+    test('deve usar o canal mail', function (): void {
         $notification = new BemVindoNotification();
         $notifiable   = m::mock('stdClass');
 
         expect($notification->via($notifiable))->toBe(['mail']);
     });
 
-    it('deve retornar uma MailMessage', function (): void {
+    test('deve retornar uma MailMessage', function (): void {
         $notification = new BemVindoNotification();
         $notifiable   = m::mock('stdClass');
 
@@ -27,7 +27,7 @@ describe('BemVindoNotification', function (): void {
         expect($mail)->toBeInstanceOf(MailMessage::class);
     });
 
-    it('deve ter o subject correto', function (): void {
+    test('deve ter o subject correto', function (): void {
         $notification = new BemVindoNotification();
         $notifiable   = m::mock('stdClass');
 
@@ -36,7 +36,7 @@ describe('BemVindoNotification', function (): void {
         expect($mail->subject)->toBe('Email de boas vindas');
     });
 
-    it('deve ter greeting de boas vindas', function (): void {
+    test('deve ter greeting de boas vindas', function (): void {
         $notification = new BemVindoNotification();
         $notifiable   = m::mock('stdClass');
 
@@ -45,7 +45,7 @@ describe('BemVindoNotification', function (): void {
         expect($mail->greeting)->toBe('Seja bem vindo!');
     });
 
-    it('deve ter as linhas corretas', function (): void {
+    test('deve ter as linhas corretas', function (): void {
         $notification = new BemVindoNotification();
         $notifiable   = m::mock('stdClass');
 
@@ -56,7 +56,7 @@ describe('BemVindoNotification', function (): void {
         expect($mail->introLines[1])->toContain('logo recebera');
     });
 
-    it('deve ter salutation correta', function (): void {
+    test('deve ter salutation correta', function (): void {
         $notification = new BemVindoNotification();
         $notifiable   = m::mock('stdClass');
 
@@ -65,7 +65,7 @@ describe('BemVindoNotification', function (): void {
         expect($mail->salutation)->toBe('Atenciosamente');
     });
 
-    it('toArray deve retornar array vazio', function (): void {
+    test('toArray deve retornar array vazio', function (): void {
         $notification = new BemVindoNotification();
         $notifiable   = m::mock('stdClass');
 

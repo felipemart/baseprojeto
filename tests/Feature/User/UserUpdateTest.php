@@ -16,12 +16,12 @@ beforeEach(function (): void {
     ]);
 });
 
-test('update user page requires authentication', function (): void {
+test('página de atualização de usuário requer autenticação', function (): void {
     $this->get(route('user.edit', $this->user->id))
         ->assertRedirect(route('login'));
 });
 
-test('admin can access update user page', function (): void {
+test('admin pode acessar página de atualização de usuário', function (): void {
     $response = $this->actingAs($this->admin)
         ->get(route('user.edit', $this->user->id));
 
@@ -29,7 +29,7 @@ test('admin can access update user page', function (): void {
     expect($response->status())->toBeIn([200, 302, 403]);
 });
 
-test('update user component can be mounted', function (): void {
+test('componente de atualização de usuário pode ser montado', function (): void {
     $this->actingAs($this->admin);
 
     $component = Livewire::test(Update::class, ['id' => $this->user->id]);
@@ -38,7 +38,7 @@ test('update user component can be mounted', function (): void {
     expect($component->get('name'))->toBe('Original Name');
 });
 
-test('update user requires name', function (): void {
+test('atualização de usuário requer nome', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Update::class, ['id' => $this->user->id])
@@ -47,7 +47,7 @@ test('update user requires name', function (): void {
         ->assertHasErrors(['name' => 'required']);
 });
 
-test('update user requires email', function (): void {
+test('atualização de usuário requer email', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Update::class, ['id' => $this->user->id])
@@ -56,7 +56,7 @@ test('update user requires email', function (): void {
         ->assertHasErrors(['email' => 'required']);
 });
 
-test('update user requires valid email', function (): void {
+test('atualização de usuário requer email válido', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Update::class, ['id' => $this->user->id])
@@ -65,7 +65,7 @@ test('update user requires valid email', function (): void {
         ->assertHasErrors(['email' => 'email']);
 });
 
-test('update user requires role', function (): void {
+test('atualização de usuário requer role', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Update::class, ['id' => $this->user->id])
@@ -74,7 +74,7 @@ test('update user requires role', function (): void {
         ->assertHasErrors(['roleSelect' => 'required']);
 });
 
-test('update user can update successfully', function (): void {
+test('atualização de usuário pode atualizar com sucesso', function (): void {
     $this->actingAs($this->admin);
     $newRole = App\Models\Role::factory()->create();
 
@@ -92,7 +92,7 @@ test('update user can update successfully', function (): void {
     ]);
 });
 
-test('update user component loads user data correctly', function (): void {
+test('componente de atualização de usuário carrega dados do usuário corretamente', function (): void {
     $this->actingAs($this->admin);
 
     $component = Livewire::test(Update::class, ['id' => $this->user->id]);
@@ -102,7 +102,7 @@ test('update user component loads user data correctly', function (): void {
     expect($component->get('roleSelect'))->toBe($this->role->id);
 });
 
-test('update user component can load deleted users', function (): void {
+test('componente de atualização de usuário pode carregar usuários excluídos', function (): void {
     $this->actingAs($this->admin);
     $this->user->delete();
 
@@ -111,7 +111,7 @@ test('update user component can load deleted users', function (): void {
     expect($component->get('name'))->toBe('Original Name');
 });
 
-test('update user component loads roles', function (): void {
+test('componente de atualização de usuário carrega roles', function (): void {
     $this->actingAs($this->admin);
 
     $component = Livewire::test(Update::class, ['id' => $this->user->id]);
@@ -119,7 +119,7 @@ test('update user component loads roles', function (): void {
     expect($component->get('roles'))->not->toBeEmpty();
 });
 
-test('update user component has correct initial values', function (): void {
+test('componente de atualização de usuário tem valores iniciais corretos', function (): void {
     $this->actingAs($this->admin);
 
     $component = Livewire::test(Update::class, ['id' => $this->user->id]);
@@ -128,7 +128,7 @@ test('update user component has correct initial values', function (): void {
     expect($component->get('search'))->toBeNull();
 });
 
-test('update user validates unique email except own', function (): void {
+test('atualização de usuário valida email único exceto o próprio', function (): void {
     $this->actingAs($this->admin);
     $otherUser = User::factory()->create(['email' => 'other@test.com']);
 

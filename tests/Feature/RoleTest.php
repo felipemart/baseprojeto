@@ -7,7 +7,7 @@ use App\Models\User;
 
 use function Pest\Laravel\assertDatabaseHas;
 
-test('user can be assigned a role', function (): void {
+test('usuário pode receber uma role', function (): void {
     $user = User::factory()->create();
     $role = Role::factory()->create(['name' => 'Admin']);
 
@@ -22,7 +22,7 @@ test('user can be assigned a role', function (): void {
     expect($user->role_id)->not->toBeNull();
 });
 
-test('user can check if has a role', function (): void {
+test('usuário pode verificar se tem uma role', function (): void {
     $user = User::factory()->create();
 
     $user->giveRole('admin');
@@ -36,7 +36,7 @@ test('user can check if has a role', function (): void {
     expect($user->hasRole('user'))->toBeFalse();
 });
 
-test('user can check multiple roles', function (): void {
+test('usuário pode verificar múltiplas roles', function (): void {
     $user = User::factory()->create();
 
     $user->giveRole('admin');
@@ -54,7 +54,7 @@ test('user can check multiple roles', function (): void {
     expect($user->hasRole('guest'))->toBeFalse();
 });
 
-test('giving role creates it if not exists', function (): void {
+test('dar role cria ela se não existir', function (): void {
     $user = User::factory()->create();
 
     $user->giveRole('newrole');
@@ -64,7 +64,7 @@ test('giving role creates it if not exists', function (): void {
     ]);
 });
 
-test('user can only have one role at a time', function (): void {
+test('usuário pode ter apenas uma role por vez', function (): void {
     $user = User::factory()->create();
 
     $user->giveRole('admin');
@@ -78,7 +78,7 @@ test('user can only have one role at a time', function (): void {
     expect($user->fresh()->hasRole('user'))->toBeTrue();
 });
 
-test('role session is created when role is assigned', function (): void {
+test('sessão de role é criada quando role é atribuída', function (): void {
     $user = User::factory()->create();
 
     $user->giveRole('admin');
@@ -91,7 +91,7 @@ test('role session is created when role is assigned', function (): void {
     expect(session()->has("user:{$user->id}.roles"))->toBeTrue();
 });
 
-test('role relationship works correctly', function (): void {
+test('relacionamento de role funciona corretamente', function (): void {
     $user = User::factory()->create();
 
     $user->giveRole('admin');

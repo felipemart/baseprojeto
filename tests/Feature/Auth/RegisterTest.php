@@ -4,24 +4,25 @@ declare(strict_types = 1);
 
 use App\Livewire\Auth\Register;
 use App\Models\User;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 
 beforeEach(function (): void {
     $this->admin = createAdminWithSession();
 });
 
-test('register page requires authentication', function (): void {
+test('página de registro requer autenticação', function (): void {
     $this->get(route('auth.register'))
         ->assertRedirect(route('login'));
 });
 
-test('admin can access register page', function (): void {
+test('admin pode acessar página de registro', function (): void {
     $this->actingAs($this->admin)
         ->get(route('auth.register'))
         ->assertOk();
 });
 
-test('register component can be mounted', function (): void {
+test('componente de registro pode ser montado', function (): void {
     $this->actingAs($this->admin);
 
     $component = Livewire::test(Register::class);
@@ -29,7 +30,7 @@ test('register component can be mounted', function (): void {
     expect($component)->not->toBeNull();
 });
 
-test('register requires name', function (): void {
+test('registro requer nome', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Register::class)
@@ -40,7 +41,7 @@ test('register requires name', function (): void {
         ->assertHasErrors(['name' => 'required']);
 });
 
-test('register requires email', function (): void {
+test('registro requer email', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Register::class)
@@ -51,7 +52,7 @@ test('register requires email', function (): void {
         ->assertHasErrors(['email' => 'required']);
 });
 
-test('register requires valid email format', function (): void {
+test('registro requer formato de email válido', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Register::class)
@@ -62,7 +63,7 @@ test('register requires valid email format', function (): void {
         ->assertHasErrors(['email' => 'email']);
 });
 
-test('register requires password', function (): void {
+test('registro requer senha', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Register::class)
@@ -74,7 +75,7 @@ test('register requires password', function (): void {
         ->assertHasErrors(['password' => 'required']);
 });
 
-test('register requires email confirmation', function (): void {
+test('registro requer confirmação de email', function (): void {
     $this->actingAs($this->admin);
 
     Livewire::test(Register::class)
@@ -86,7 +87,7 @@ test('register requires email confirmation', function (): void {
         ->assertHasErrors(['email' => 'confirmed']);
 });
 
-test('register requires unique email', function (): void {
+test('registro requer email único', function (): void {
     $this->actingAs($this->admin);
     $existingUser = User::factory()->create(['email' => 'existing@example.com']);
 
@@ -99,7 +100,7 @@ test('register requires unique email', function (): void {
         ->assertHasErrors(['email' => 'unique']);
 });
 
-test('register name respects max length', function (): void {
+test('registro respeita tamanho máximo do nome', function (): void {
     $this->actingAs($this->admin);
     $longName = str_repeat('a', 256);
 
@@ -112,7 +113,7 @@ test('register name respects max length', function (): void {
         ->assertHasErrors(['name' => 'max']);
 });
 
-test('register email respects max length', function (): void {
+test('registro respeita tamanho máximo do email', function (): void {
     $this->actingAs($this->admin);
     $longEmail = str_repeat('a', 250) . '@test.com';
 
@@ -123,4 +124,50 @@ test('register email respects max length', function (): void {
         ->set('password', 'password123')
         ->call('registrarUsuario')
         ->assertHasErrors(['email' => 'max']);
+});
+
+test('registro cria usuário com sucesso e envia notificação', function (): void {
+    $this->actingAs($this->admin);
+    
+    Notification::fake();
+    
+    $userCount = User::count();
+
+    Livewire::test(Register::class)
+        ->set('name', 'New User')
+        ->set('email', 'newuser@example.com')
+        ->set('email_confirmation', 'newuser@example.com')
+        ->set('password', 'password123')
+        ->call('registrarUsuario')
+        ->assertHasNoErrors()
+        ->assertRedirect(route('dashboard'));
+
+    expect(User::count())->toBe($userCount + 1);
+    
+    $user = User::where('email', 'newuser@example.com')->first();
+    expect($user)->not->toBeNull();
+    expect($user->name)->toBe('New User');
+    expect($user->email)->toBe('newuser@example.com');
+    
+    Notification::assertSentTo(
+        $user,
+        \App\Notifications\BemVindoNotification::class
+    );
+});
+
+test('registro faz hash da senha corretamente', function (): void {
+    $this->actingAs($this->admin);
+    
+    Notification::fake();
+
+    Livewire::test(Register::class)
+        ->set('name', 'Test User Password')
+        ->set('email', 'testpassword@example.com')
+        ->set('email_confirmation', 'testpassword@example.com')
+        ->set('password', 'password123')
+        ->call('registrarUsuario');
+
+    $user = User::where('email', 'testpassword@example.com')->first();
+    expect($user->password)->not->toBeNull();
+    expect(strlen($user->password))->toBeGreaterThan(20); // Senha com hash
 });

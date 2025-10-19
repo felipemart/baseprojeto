@@ -8,7 +8,7 @@ use App\Models\User;
 
 use function Pest\Laravel\assertDatabaseHas;
 
-test('user can be created', function (): void {
+test('usuário pode ser criado', function (): void {
     $user = User::factory()->create([
         'name'  => 'Test User',
         'email' => 'test@example.com',
@@ -19,7 +19,7 @@ test('user can be created', function (): void {
     expect($user->email)->toBe('test@example.com');
 });
 
-test('user password is hashed', function (): void {
+test('senha do usuário é hash', function (): void {
     $user = User::factory()->create([
         'password' => 'plain-password',
     ]);
@@ -28,7 +28,7 @@ test('user password is hashed', function (): void {
     expect(Hash::check('plain-password', $user->password))->toBeTrue();
 });
 
-test('user has fillable attributes', function (): void {
+test('usuário tem atributos preenchíveis', function (): void {
     $user = User::factory()->create([
         'name'     => 'Test',
         'email'    => 'test@example.com',
@@ -39,7 +39,7 @@ test('user has fillable attributes', function (): void {
     expect($user->email)->toBe('test@example.com');
 });
 
-test('user password is hidden from arrays', function (): void {
+test('senha do usuário é ocultada em arrays', function (): void {
     $user = User::factory()->create();
 
     $array = $user->toArray();
@@ -48,7 +48,7 @@ test('user password is hidden from arrays', function (): void {
     expect($array)->not->toHaveKey('remember_token');
 });
 
-test('user has soft deletes', function (): void {
+test('usuário tem soft deletes', function (): void {
     $user = User::factory()->create();
 
     $user->delete();
@@ -62,7 +62,7 @@ test('user has soft deletes', function (): void {
     expect(User::withTrashed()->find($user->id))->not->toBeNull();
 });
 
-test('user can be force deleted', function (): void {
+test('usuário pode ser deletado permanentemente', function (): void {
     $user   = User::factory()->create();
     $userId = $user->id;
 
@@ -71,7 +71,7 @@ test('user can be force deleted', function (): void {
     expect(User::withTrashed()->find($userId))->toBeNull();
 });
 
-test('user has role relationship', function (): void {
+test('usuário tem relacionamento com role', function (): void {
     $user = User::factory()->create();
     $role = Role::factory()->create();
 
@@ -82,7 +82,7 @@ test('user has role relationship', function (): void {
     expect($user->role->id)->toBe($role->id);
 });
 
-test('user has permissions relationship', function (): void {
+test('usuário tem relacionamento com permissões', function (): void {
     $user          = User::factory()->create();
     $role          = Role::factory()->create();
     $user->role_id = $role->id;
@@ -95,7 +95,7 @@ test('user has permissions relationship', function (): void {
     expect($user->permissions->first())->toBeInstanceOf(Permission::class);
 });
 
-test('user has deleted_by relationship', function (): void {
+test('usuário tem relacionamento deleted_by', function (): void {
     $admin = User::factory()->create();
     $user  = User::factory()->create();
 
@@ -106,7 +106,7 @@ test('user has deleted_by relationship', function (): void {
     expect($user->deletedBy->id)->toBe($admin->id);
 });
 
-test('user has restored_by relationship', function (): void {
+test('usuário tem relacionamento restored_by', function (): void {
     $admin = User::factory()->create();
     $user  = User::factory()->create();
 
@@ -117,7 +117,7 @@ test('user has restored_by relationship', function (): void {
     expect($user->restoredBy->id)->toBe($admin->id);
 });
 
-test('user get key permissions returns correct format', function (): void {
+test('get key permissions retorna formato correto', function (): void {
     $user = User::factory()->create();
 
     $key = $user->getKeyPermissions();
@@ -125,7 +125,7 @@ test('user get key permissions returns correct format', function (): void {
     expect($key)->toBe("user:{$user->id}:permissions");
 });
 
-test('user get key role returns correct format', function (): void {
+test('get key role retorna formato correto', function (): void {
     $user = User::factory()->create();
 
     $key = $user->getKeyRole();
@@ -133,7 +133,7 @@ test('user get key role returns correct format', function (): void {
     expect($key)->toBe("user:{$user->id}:roles");
 });
 
-test('user email_verified_at is cast to datetime', function (): void {
+test('email_verified_at é convertido para datetime', function (): void {
     $user = User::factory()->create([
         'email_verified_at' => now(),
     ]);

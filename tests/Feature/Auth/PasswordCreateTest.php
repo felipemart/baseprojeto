@@ -9,7 +9,7 @@ use Livewire\Livewire;
 
 use function Pest\Laravel\get;
 
-it('password create page can be rendered with valid token', function (): void {
+test('página de criação de senha pode ser renderizada com token válido', function (): void {
     $user  = User::factory()->create();
     $token = Password::createToken($user);
 
@@ -17,14 +17,14 @@ it('password create page can be rendered with valid token', function (): void {
         ->assertSuccessful();
 });
 
-it('password create redirects with invalid token', function (): void {
+test('criação de senha redireciona com token inválido', function (): void {
     $user = User::factory()->create();
 
     Livewire::test(Create::class, ['token' => 'invalid-token', 'email' => $user->email])
         ->assertRedirect(route('login'));
 });
 
-it('password create requires password', function (): void {
+test('criação de senha requer senha', function (): void {
     $user  = User::factory()->create();
     $token = Password::createToken($user);
 
@@ -34,7 +34,7 @@ it('password create requires password', function (): void {
         ->assertHasErrors(['password' => 'required']);
 });
 
-it('password create requires password confirmation', function (): void {
+test('criação de senha requer confirmação de senha', function (): void {
     $user  = User::factory()->create();
     $token = Password::createToken($user);
 
@@ -45,7 +45,7 @@ it('password create requires password confirmation', function (): void {
         ->assertHasErrors(['password' => 'confirmed']);
 });
 
-it('password create requires minimum 8 characters', function (): void {
+test('criação de senha requer mínimo 8 caracteres', function (): void {
     $user  = User::factory()->create();
     $token = Password::createToken($user);
 
@@ -56,7 +56,7 @@ it('password create requires minimum 8 characters', function (): void {
         ->assertHasErrors(['password' => 'min']);
 });
 
-it('password create requires valid email', function (): void {
+test('criação de senha requer email válido', function (): void {
     $user  = User::factory()->create();
     $token = Password::createToken($user);
 
@@ -68,7 +68,7 @@ it('password create requires valid email', function (): void {
         ->assertHasErrors(['email' => 'email']);
 });
 
-it('can create password successfully', function (): void {
+test('pode criar senha com sucesso', function (): void {
     $user  = User::factory()->create();
     $token = Password::createToken($user);
 
@@ -80,7 +80,7 @@ it('can create password successfully', function (): void {
         ->assertSessionHas('status', 'Senha criada com sucesso.');
 });
 
-it('obfuscar email computed property works', function (): void {
+test('propriedade computed obfuscarEmail funciona', function (): void {
     $user  = User::factory()->create(['email' => 'test@example.com']);
     $token = Password::createToken($user);
 

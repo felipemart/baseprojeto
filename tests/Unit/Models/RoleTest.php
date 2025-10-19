@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 describe('Role Model', function (): void {
-    it('pode criar uma role', function (): void {
+    test('pode criar uma role', function (): void {
         $role = Role::factory()->create([
             'name' => 'Administrator',
         ]);
@@ -18,14 +18,14 @@ describe('Role Model', function (): void {
         expect($role->name)->toBe('Administrator');
     });
 
-    it('possui atributos fillable corretos', function (): void {
+    test('possui atributos fillable corretos', function (): void {
         $fillable = ['name'];
         $role     = new Role();
 
         expect($role->getFillable())->toBe($fillable);
     });
 
-    it('pode ter múltiplos usuários', function (): void {
+    test('pode ter múltiplos usuários', function (): void {
         $role  = Role::factory()->create();
         $user1 = User::factory()->create(['role_id' => $role->id]);
         $user2 = User::factory()->create(['role_id' => $role->id]);
@@ -33,7 +33,7 @@ describe('Role Model', function (): void {
         expect($role->users)->toHaveCount(2);
     });
 
-    it('pode ter múltiplas permissões', function (): void {
+    test('pode ter múltiplas permissões', function (): void {
         $role        = Role::factory()->create();
         $permission1 = Permission::factory()->create();
         $permission2 = Permission::factory()->create();
@@ -43,7 +43,7 @@ describe('Role Model', function (): void {
         expect($role->permissions)->toHaveCount(2);
     });
 
-    it('relacionamento users retorna instância HasMany', function (): void {
+    test('relacionamento users retorna instância HasMany', function (): void {
         $role = new Role();
 
         expect($role->users())->toBeInstanceOf(
@@ -51,7 +51,7 @@ describe('Role Model', function (): void {
         );
     });
 
-    it('relacionamento permissions retorna instância BelongsToMany', function (): void {
+    test('relacionamento permissions retorna instância BelongsToMany', function (): void {
         $role = new Role();
 
         expect($role->permissions())->toBeInstanceOf(
@@ -59,7 +59,7 @@ describe('Role Model', function (): void {
         );
     });
 
-    it('pode sincronizar permissões', function (): void {
+    test('pode sincronizar permissões', function (): void {
         $role        = Role::factory()->create();
         $permission1 = Permission::factory()->create();
         $permission2 = Permission::factory()->create();
@@ -72,14 +72,14 @@ describe('Role Model', function (): void {
         expect($role->fresh()->permissions)->toHaveCount(1);
     });
 
-    it('nome da role é único', function (): void {
+    test('nome da role é único', function (): void {
         Role::factory()->create(['name' => 'Unique Role']);
 
         expect(fn () => Role::create(['name' => 'Unique Role']))
             ->toThrow(Exception::class);
-    })->skip('Não há constraint de unicidade no banco');
+    });
 
-    it('can detach permissions', function (): void {
+    test('pode desanexar permissões', function (): void {
         $role       = Role::factory()->create();
         $permission = Permission::factory()->create();
 

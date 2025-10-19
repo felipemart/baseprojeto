@@ -6,12 +6,12 @@ use App\Livewire\User\Index;
 use App\Models\Role;
 use App\Models\User;
 
-test('user index requires authentication', function (): void {
+test('índice de usuários requer autenticação', function (): void {
     $this->get(route('user.list'))
         ->assertRedirect(route('login'));
 });
 
-test('user index requires permission', function (): void {
+test('índice de usuários requer permissão', function (): void {
     $user = User::factory()->create();
     $user->giveRole('user');
     $user = $user->fresh();
@@ -23,7 +23,7 @@ test('user index requires permission', function (): void {
     expect($response->status())->toBeIn([302, 403]);
 });
 
-test('admin can access user index', function (): void {
+test('admin pode acessar índice de usuários', function (): void {
     $admin = createAdminWithSession();
 
     $response = $this->actingAs($admin)
@@ -32,7 +32,7 @@ test('admin can access user index', function (): void {
     expect($response->status())->toBeIn([200, 302, 403]);
 });
 
-test('user index component can be rendered', function (): void {
+test('componente de índice de usuários pode ser renderizado', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -44,7 +44,7 @@ test('user index component can be rendered', function (): void {
         ->assertOk();
 });
 
-test('user index displays users', function (): void {
+test('índice de usuários exibe usuários', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -58,7 +58,7 @@ test('user index displays users', function (): void {
     expect($component->users)->not->toBeNull();
 });
 
-test('user index search filters by name', function (): void {
+test('busca no índice de usuários filtra por nome', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -77,7 +77,7 @@ test('user index search filters by name', function (): void {
     expect($results->first()->name)->toBe('John Doe');
 });
 
-test('user index search filters by email', function (): void {
+test('busca no índice de usuários filtra por email', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -96,7 +96,7 @@ test('user index search filters by email', function (): void {
     expect($results->first()->email)->toBe('john@example.com');
 });
 
-test('user index can change per page', function (): void {
+test('índice de usuários pode alterar por página', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -109,7 +109,7 @@ test('user index can change per page', function (): void {
         ->assertSet('perPage', 5);
 });
 
-test('user index dispatches delete event', function (): void {
+test('índice de usuários dispara evento de exclusão', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -124,7 +124,7 @@ test('user index dispatches delete event', function (): void {
         ->assertDispatched('user.deletion');
 });
 
-test('user index dispatches restore event', function (): void {
+test('índice de usuários dispara evento de restauração', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -139,7 +139,7 @@ test('user index dispatches restore event', function (): void {
         ->assertDispatched('user.restoring');
 });
 
-test('user index dispatches show event', function (): void {
+test('índice de usuários dispara evento de visualização', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -154,7 +154,7 @@ test('user index dispatches show event', function (): void {
         ->assertDispatched('user.showing');
 });
 
-test('user index can filter by role', function (): void {
+test('índice de usuários pode filtrar por role', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();
@@ -171,7 +171,7 @@ test('user index can filter by role', function (): void {
     expect($component)->not->toBeNull();
 });
 
-test('user index can show trashed users', function (): void {
+test('índice de usuários pode mostrar usuários excluídos', function (): void {
     $admin = createAdminWithSession();
     $admin->givePermission('usuario.list');
     $admin = $admin->fresh();

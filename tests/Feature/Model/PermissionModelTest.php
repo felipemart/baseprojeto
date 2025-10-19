@@ -8,7 +8,7 @@ use App\Models\User;
 
 use function Pest\Laravel\assertDatabaseHas;
 
-test('permission can be created', function (): void {
+test('permissão pode ser criada', function (): void {
     $role       = Role::factory()->create();
     $permission = Permission::factory()->create([
         'permission' => 'create-post',
@@ -26,7 +26,7 @@ test('permission can be created', function (): void {
     ]);
 });
 
-test('permission has fillable attributes', function (): void {
+test('permissão tem atributos preenchíveis', function (): void {
     $role       = Role::factory()->create();
     $permission = Permission::factory()->create([
         'permission' => 'edit-post',
@@ -39,7 +39,7 @@ test('permission has fillable attributes', function (): void {
     expect($permission->role_id)->toBe($role->id);
 });
 
-test('permission has users relationship', function (): void {
+test('permissão tem relacionamento com usuários', function (): void {
     $role       = Role::factory()->create();
     $permission = Permission::factory()->create(['role_id' => $role->id]);
     $user       = User::factory()->create(['role_id' => $role->id]);
@@ -50,7 +50,7 @@ test('permission has users relationship', function (): void {
     expect($permission->users->first())->toBeInstanceOf(User::class);
 });
 
-test('permission can belong to multiple users', function (): void {
+test('permissão pode pertencer a múltiplos usuários', function (): void {
     $role       = Role::factory()->create();
     $permission = Permission::factory()->create(['role_id' => $role->id]);
     $user1      = User::factory()->create(['role_id' => $role->id]);
@@ -64,7 +64,7 @@ test('permission can belong to multiple users', function (): void {
     expect($permission->fresh()->users)->toHaveCount(3);
 });
 
-test('permission has roles relationship', function (): void {
+test('permissão tem relacionamento com roles', function (): void {
     $role       = Role::factory()->create();
     $permission = Permission::factory()->create(['role_id' => $role->id]);
 
@@ -74,7 +74,7 @@ test('permission has roles relationship', function (): void {
     expect($permission->roles->first())->toBeInstanceOf(Role::class);
 });
 
-test('permission can belong to multiple roles', function (): void {
+test('permissão pode pertencer a múltiplas roles', function (): void {
     $permission = Permission::factory()->create();
     $role1      = Role::factory()->create();
     $role2      = Role::factory()->create();
@@ -85,7 +85,7 @@ test('permission can belong to multiple roles', function (): void {
     expect($permission->fresh()->roles)->toHaveCount(2);
 });
 
-test('permission belongs to a role', function (): void {
+test('permissão pertence a uma role', function (): void {
     $role       = Role::factory()->create();
     $permission = Permission::factory()->create(['role_id' => $role->id]);
 

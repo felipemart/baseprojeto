@@ -15,13 +15,13 @@ beforeEach(function (): void {
     RateLimiter::clear('login');
 });
 
-test('login page can be rendered', function (): void {
+test('página de login pode ser renderizada', function (): void {
     $response = $this->get(route('login'));
 
     $response->assertOk();
 });
 
-test('users can authenticate using the login form', function (): void {
+test('usuários podem autenticar usando formulário de login', function (): void {
     $user = User::factory()->create([
         'email'    => 'test@example.com',
         'password' => Hash::make('password'),
@@ -36,7 +36,7 @@ test('users can authenticate using the login form', function (): void {
     assertAuthenticated();
 });
 
-test('users cannot authenticate with invalid password', function (): void {
+test('usuários não podem autenticar com senha inválida', function (): void {
     $user = User::factory()->create([
         'email'    => 'test@example.com',
         'password' => Hash::make('password'),
@@ -51,7 +51,7 @@ test('users cannot authenticate with invalid password', function (): void {
     assertGuest();
 });
 
-test('login requires email', function (): void {
+test('login requer email', function (): void {
     Livewire::test(Login::class)
         ->set('email', '')
         ->set('password', 'password')
@@ -59,7 +59,7 @@ test('login requires email', function (): void {
         ->assertHasErrors(['email' => 'required']);
 });
 
-test('login requires valid email format', function (): void {
+test('login requer formato de email válido', function (): void {
     Livewire::test(Login::class)
         ->set('email', 'not-an-email')
         ->set('password', 'password')
@@ -67,7 +67,7 @@ test('login requires valid email format', function (): void {
         ->assertHasErrors(['email' => 'email']);
 });
 
-test('login requires password', function (): void {
+test('login requer senha', function (): void {
     Livewire::test(Login::class)
         ->set('email', 'test@example.com')
         ->set('password', '')
@@ -75,7 +75,7 @@ test('login requires password', function (): void {
         ->assertHasErrors(['password' => 'required']);
 });
 
-test('login is rate limited after 5 failed attempts', function (): void {
+test('login possui limitação de taxa após 5 tentativas falhadas', function (): void {
     $user = User::factory()->create([
         'email'    => 'test@example.com',
         'password' => Hash::make('password'),
@@ -99,7 +99,7 @@ test('login is rate limited after 5 failed attempts', function (): void {
     assertGuest();
 });
 
-test('successful login creates session for permissions and roles', function (): void {
+test('login bem-sucedido cria sessão para permissões e roles', function (): void {
     $user = User::factory()->create([
         'email'    => 'test@example.com',
         'password' => Hash::make('password'),

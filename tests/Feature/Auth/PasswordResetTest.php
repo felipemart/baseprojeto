@@ -9,7 +9,7 @@ use Livewire\Livewire;
 
 use function Pest\Laravel\get;
 
-it('password reset page can be rendered with valid token', function (): void {
+test('página de redefinição de senha pode ser renderizada com token válido', function (): void {
     $user  = User::factory()->create();
     $token = Password::createToken($user);
 
@@ -17,14 +17,14 @@ it('password reset page can be rendered with valid token', function (): void {
         ->assertSuccessful();
 });
 
-it('password reset redirects with invalid token', function (): void {
+test('redefinição de senha redireciona com token inválido', function (): void {
     $user = User::factory()->create();
 
     Livewire::test(Reset::class, ['token' => 'invalid-token', 'email' => $user->email])
         ->assertRedirect(route('login'));
 });
 
-it('password reset requires password', function (): void {
+test('redefinição de senha requer senha', function (): void {
     $user  = User::factory()->create();
     $token = Password::createToken($user);
 
@@ -34,7 +34,7 @@ it('password reset requires password', function (): void {
         ->assertHasErrors(['password' => 'required']);
 });
 
-it('password reset requires password confirmation', function (): void {
+test('redefinição de senha requer confirmação de senha', function (): void {
     $user  = User::factory()->create();
     $token = Password::createToken($user);
 
@@ -45,7 +45,7 @@ it('password reset requires password confirmation', function (): void {
         ->assertHasErrors(['password' => 'confirmed']);
 });
 
-it('password reset requires minimum 8 characters', function (): void {
+test('redefinição de senha requer mínimo 8 caracteres', function (): void {
     $user  = User::factory()->create();
     $token = Password::createToken($user);
 
@@ -56,7 +56,7 @@ it('password reset requires minimum 8 characters', function (): void {
         ->assertHasErrors(['password' => 'min']);
 });
 
-it('password reset requires valid email', function (): void {
+test('redefinição de senha requer email válido', function (): void {
     $user  = User::factory()->create();
     $token = Password::createToken($user);
 
@@ -68,7 +68,7 @@ it('password reset requires valid email', function (): void {
         ->assertHasErrors(['email' => 'email']);
 });
 
-it('can reset password successfully', function (): void {
+test('pode redefinir senha com sucesso', function (): void {
     $user  = User::factory()->create();
     $token = Password::createToken($user);
 
@@ -80,7 +80,7 @@ it('can reset password successfully', function (): void {
         ->assertSessionHas('status', 'Senha resetada com sucesso.');
 });
 
-it('obfuscar email computed property works in reset', function (): void {
+test('propriedade computed obfuscarEmail funciona em redefinição', function (): void {
     $user  = User::factory()->create(['email' => 'test@example.com']);
     $token = Password::createToken($user);
 

@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-test('admin can access admin protected routes', function (): void {
+test('admin pode acessar rotas protegidas de admin', function (): void {
     $admin = createAdminWithSession();
 
     $response = $this->actingAs($admin)
@@ -12,12 +12,12 @@ test('admin can access admin protected routes', function (): void {
     expect($response->status())->toBeIn([200, 302, 403]);
 });
 
-test('guest cannot access admin protected routes', function (): void {
+test('visitante não pode acessar rotas protegidas de admin', function (): void {
     $this->get(route('user.list'))
         ->assertRedirect(route('login'));
 });
 
-test('admin can access user create route', function (): void {
+test('admin pode acessar rota de criação de usuário', function (): void {
     $admin = createAdminWithSession();
 
     $response = $this->actingAs($admin)

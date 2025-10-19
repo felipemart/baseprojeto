@@ -6,7 +6,7 @@ use App\Models\User;
 
 use function Pest\Laravel\assertGuest;
 
-test('authenticated user can logout', function (): void {
+test('usuário autenticado pode fazer logout', function (): void {
     $user = User::factory()->create();
 
     $this->actingAs($user)
@@ -16,12 +16,12 @@ test('authenticated user can logout', function (): void {
     assertGuest();
 });
 
-test('guest cannot access logout', function (): void {
+test('visitante não pode acessar logout', function (): void {
     $this->get(route('logout'))
         ->assertRedirect(route('login'));
 });
 
-test('logout clears user session', function (): void {
+test('logout limpa a sessão do usuário', function (): void {
     $user = User::factory()->create();
 
     $this->actingAs($user);
