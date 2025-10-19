@@ -18,17 +18,14 @@
                         placeholder="Selecionar"
                         placeholder-value=""
                         wire:model="roleSelect" class=""/>
-
+                    <x-slot:actions>
+                        <hr class="my-5"/>
+                        <x-button wire:navigate href="{{ route('user.list')  }}" label="Cancelar"/>
+                        <x-button label="Salvar" class="btn-primary" type="submit" spinner="save"/>
+                    </x-slot:actions>
                 </x-form>
             </div>
         </x-steps>
-
-        <hr class="my-5"/>
-        <x-button wire:navigate href="{{ route('user.list')  }}"
-                  label="Cancelar"/>
-        <x-button label="Salvar" wire:click="save"/>
-
-
     </x-card>
 
 

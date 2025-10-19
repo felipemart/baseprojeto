@@ -23,5 +23,10 @@ class UserSeeder extends Seeder
                 'email'    => 'admin@localhost.com',
                 'password' => bcrypt('123'),
             ]);
+
+        User::factory(50)
+            ->withRoles('User')
+            ->withPermissions('usuario.list')
+            ->create();
     }
 }

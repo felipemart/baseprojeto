@@ -8,6 +8,6 @@
     <x-input label="Para restaurar o usuario digite 'RESTAURAR' " value="" wire:model="confirmRestore_confirmation"/>
     <br/>
     <x-button label="Cancelar" @click="$wire.modal = false"/>
-    <x-button label="Confirmar" class="btn-primary" wire:click="restore" spinner class="btn-danger"/>
+    <x-button label="Confirmar" class="btn-primary" wire:click="restore" spinner/>
 </x-modal>
 

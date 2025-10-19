@@ -36,10 +36,9 @@
                             <x-input label="Restaurado em" value="{{ $user->restored_at }}" class=""
                                      disabled/>
                         @endif
-
                         <x-slot:actions>
-
-                            <x-button label="Atualizar dados" class="btn-primary" type="submit" spinner="save"/>
+                        <x-button wire:navigate href="{{ route('user.list')  }}" label="Voltar"/>
+                        <x-button  label="Atualizar dados" class="btn-primary"  type="submit" spinner="save"/>
                         </x-slot:actions>
                     </x-form>
                 </div>
@@ -48,8 +47,9 @@
             </x-tab>
 
         </x-tabs>
-        <x-button wire:navigate href="{{ route('user.list')  }}"
-                  label="Voltar"/>
+
+
+
     </x-card>
 
     <!-- FILTER DRAWER -->

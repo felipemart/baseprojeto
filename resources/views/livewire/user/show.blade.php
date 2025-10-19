@@ -13,6 +13,8 @@
         @endif
     @endif
     <br/>
-    <x-button label="Cancelar" @click="$wire.modal = false"/>
+
+    <hr class="border-t-[length:var(--border)] border-base-content/10 my-3"/>
+    <x-button label="Fechar" @click="$wire.modal = false"/>
 </x-modal>
 
